@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us - Blue Baby Support Initiative</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "on-tertiary-fixed-variant": "#154b6c",
+                    "primary-container": "#1e73be",
+                    "surface-variant": "#e2e2e5",
+                    "inverse-primary": "#a0c9ff",
+                    "on-tertiary-fixed": "#001e30",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "emergency-red": "#D93025",
+                    "background": "#f9f9fc",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#2b1700",
+                    "primary-fixed": "#d2e4ff",
+                    "secondary-fixed": "#ffddba",
+                    "secondary": "#875200",
+                    "on-surface": "#1a1c1e",
+                    "on-primary-container": "#f2f5ff",
+                    "surface-bright": "#f9f9fc",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-fixed-variant": "#673d00",
+                    "secondary-fixed-dim": "#ffb866",
+                    "tertiary-container": "#467599",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#cbe6ff",
+                    "outline": "#717782",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e2e2e5",
+                    "surface-tint": "#0061a6",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#fda221",
+                    "on-tertiary-container": "#f0f6ff",
+                    "surface-dim": "#dadadc",
+                    "surface-container-low": "#f3f3f6",
+                    "surface-container": "#eeeef0",
+                    "on-secondary-container": "#673e00",
+                    "primary": "#005a9c",
+                    "success-teal": "#008577",
+                    "supportive-sky": "#F0F7FF",
+                    "tertiary": "#2c5c7f",
+                    "outline-variant": "#c1c7d3",
+                    "tertiary-fixed-dim": "#9dccf3",
+                    "surface-container-high": "#e8e8ea",
+                    "primary-fixed-dim": "#a0c9ff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-primary-fixed": "#001c37",
+                    "on-primary-fixed-variant": "#00497f",
+                    "on-surface-variant": "#414751",
+                    "surface": "#f9f9fc",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+                "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "section-gap-lg": "120px",
+                    "section-gap-md": "80px"
+                },
+                "fontFamily": {
+                    "display": ["Manrope"],
+                    "body": ["Manrope"]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    :root{ color-scheme: light; }
+    * { -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .fs-display   { font-size: clamp(2rem, 5.6vw + 0.6rem, 3.5rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 800; }
+    .fs-headline  { font-size: clamp(1.5rem, 2.6vw + 0.9rem, 2rem);  line-height: 1.2;  letter-spacing: -0.01em; font-weight: 700; }
+    .fs-subhead   { font-size: clamp(1.1rem, 1vw + 0.9rem, 1.375rem); line-height: 1.35; font-weight: 700; }
+    .fs-body-lg   { font-size: clamp(1rem, 0.4vw + 0.9rem, 1.125rem); line-height: 1.6; }
+    .fs-impact    { font-size: clamp(2.25rem, 4vw + 1rem, 3rem); line-height: 1.05; letter-spacing: -0.02em; font-weight: 800; }
+    .fs-label     { font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.01em; }
+    .glass {
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(255,255,255,0.6);
+    }
+    #mobile-menu-panel {
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    #mobile-menu-panel.open { transform: translateX(0%); }
+    #mobile-menu-backdrop {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    #mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
+    body.menu-locked { overflow: hidden; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0) scale(1); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px) scale(0.98); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-stagger > *:nth-child(1){transition-delay:0.05s}
+    .reveal-stagger > *:nth-child(2){transition-delay:0.15s}
+    .reveal-stagger > *:nth-child(3){transition-delay:0.25s}
+    .reveal-stagger > *:nth-child(4){transition-delay:0.35s}
+    .reveal-stagger > *:nth-child(5){transition-delay:0.45s}
+    @media (prefers-reduced-motion: reduce) {
+        .reveal, .reveal-stagger > *, #mobile-menu-panel { transition: none !important; }
+        html { scroll-behavior: auto; }
+    }
+    .gallery-frame { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .gallery-frame:hover { transform: scale(1.03); box-shadow: 0 16px 32px -10px rgba(0,90,156,0.25); }
+    @keyframes float-blob {
+        0%, 100% { transform: translate(0,0) scale(1); }
+        33% { transform: translate(20px,-15px) scale(1.08); }
+        66% { transform: translate(-15px,10px) scale(0.95); }
+    }
+    .blob { animation: float-blob 10s ease-in-out infinite; }
+    .blob-delay { animation-delay: 2.5s; }
+    @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(253,162,33,0.45); }
+        70% { box-shadow: 0 0 0 14px rgba(253,162,33,0); }
+        100% { box-shadow: 0 0 0 0 rgba(253,162,33,0); }
+    }
+    .pulse-btn:hover { animation: pulse-ring 1.4s ease-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+        .blob, .pulse-btn:hover { animation: none !important; }
+    }
+</style>
+
+<style>
+    .pillar-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,90,156,0.25); }
+    .pillar-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+</style>
+</head>
+
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+<header class="bg-surface/95 backdrop-blur-md fixed w-full top-0 z-50 shadow-[0px_8px_24px_rgba(0,90,156,0.08)]">
+<div class="flex justify-between items-center w-full px-4 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto h-16 md:h-20">
+    <a class="flex items-center gap-2 shrink-0" href="index.html">
+        <img src="logo.png" alt="Blue Baby Support Initiative logo" class="h-9 w-9 md:h-10 md:w-10 object-contain"/>
+        <span class="font-display text-base md:text-headline-md font-extrabold text-primary leading-tight">BBSI</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#top">Home</a>
+        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#pillars">What We Do</a>
+        <a class="fs-label text-primary border-b-2 border-primary pb-1 font-bold" href="index.html#success-stories">Success Stories</a>
+        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#contact">Get Involved</a>
+    </nav>
+    <div class="flex items-center gap-2 md:gap-4">
+        <a class="hidden md:inline-flex bg-secondary-container text-on-secondary-container fs-label px-6 py-3 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-sm hover:shadow-md hover:scale-95 duration-150" href="https://bbsinitiative.org/donate" target="_blank" rel="noopener">
+            Donate Now
+        </a>
+        <button id="menu-open-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-panel" class="md:hidden text-primary p-2 -mr-2 rounded-lg active:bg-primary-fixed">
+            <span class="material-symbols-outlined text-3xl block">menu</span>
+        </button>
+    </div>
+</div>
+</header>
+
+<div id="mobile-menu-backdrop" class="fixed inset-0 bg-on-background/50 z-[60] md:hidden"></div>
+<div id="mobile-menu-panel" class="fixed top-0 right-0 h-full w-[78%] max-w-xs bg-surface-container-lowest z-[70] md:hidden shadow-2xl flex flex-col">
+    <div class="flex items-center justify-between h-16 px-5 border-b border-outline-variant">
+        <span class="font-display text-base font-extrabold text-primary">Menu</span>
+        <button id="menu-close-btn" type="button" aria-label="Close menu" class="text-on-surface-variant p-2 -mr-2 rounded-lg active:bg-surface-container">
+            <span class="material-symbols-outlined text-3xl block">close</span>
+        </button>
+    </div>
+    <nav class="flex flex-col px-5 py-6 gap-1">
+        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#top">Home</a>
+        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#pillars">What We Do</a>
+        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#success-stories">Success Stories</a>
+        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#contact">Get Involved</a>
+    </nav>
+    <div class="mt-auto p-5">
+        <a class="w-full inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-6 py-3.5 rounded-lg shadow-sm" href="https://bbsinitiative.org/donate" target="_blank" rel="noopener">
+            Donate Now
+        </a>
+    </div>
+</div>
+
+<main>
+
+<!-- About Hero -->
+<section class="relative w-full min-h-[65vh] md:min-h-[70vh] flex items-end pt-24 md:pt-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="images/about-hero.jpg" alt="BBSI team members standing together in celebration" class="w-full h-full object-cover object-top"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/50 to-on-background/15"></div>
+    </div>
+    <div class="relative z-10 w-full px-5 md:px-margin-desktop max-w-3xl mx-auto pb-12 md:pb-16">
+        <a href="index.html" class="inline-flex items-center gap-1.5 fs-label text-on-primary/90 mb-5 hover:gap-2.5 transition-all">
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> Back to Home
+        </a>
+        <span class="inline-block fs-label text-on-primary bg-white/15 backdrop-blur-sm border border-white/25 px-4 py-1.5 rounded-full mb-4">Founded June 2018</span>
+        <h1 class="fs-display font-display text-white mb-4">Welcome to Blue Baby Support Initiative</h1>
+        <p class="fs-body-lg text-white/90 max-w-xl">A dedicated nonprofit organization passionate about making a tangible difference in the lives of underprivileged individuals, especially women and children, across Nigeria.</p>
+    </div>
+</section>
+
+<section class="reveal px-5 md:px-margin-desktop max-w-3xl mx-auto py-14 md:py-20">
+    <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">Who We Are</span>
+    <p class="text-on-surface-variant leading-relaxed fs-body-lg mb-10">We are a dedicated nonprofit organization passionate about making a tangible difference in the lives of underprivileged individuals, especially women and children, across Nigeria. Rooted in compassion, fueled by a desire for social impact, and driven by strategic action, Blue Baby Support Initiative (BBSI) stands as a beacon of hope for the most vulnerable in our society.</p>
+
+    <h2 class="fs-headline text-on-surface mb-4">Our Story</h2>
+    <p class="text-on-surface-variant leading-relaxed mb-4">Founded in June 2018, on the belief that every life matters, BBSI was established to address critical challenges faced by women and children in Nigeria. We identified gaps in maternal healthcare, educational support for vulnerable children, and economic empowerment for rural women, and we stepped in to bridge those gaps.</p>
+    <p class="text-on-surface-variant leading-relaxed">From providing emergency relief for single mothers to advocating for maternal and infant health, our journey has been one of resilience, collaboration, and relentless pursuit of positive change.</p>
+</section>
+
+<section class="reveal bg-supportive-sky py-14 md:py-20 px-5 md:px-margin-desktop">
+    <div class="max-w-3xl mx-auto mb-12 text-center">
+        <span class="fs-label text-primary bg-white px-4 py-1.5 rounded-full inline-block mb-5">Our Vision</span>
+        <p class="fs-headline text-on-surface leading-snug">We envision a society where maternal and child health risks are eliminated, every child has access to quality education, and rural women are economically empowered to live dignified and independent lives.</p>
+    </div>
+
+    <div class="max-w-container-max mx-auto">
+        <h2 class="fs-headline text-on-surface text-center mb-10">Our Mission</h2>
+        <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+        <div class="pillar-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+            <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-primary" style="font-size:24px;">campaign</span>
+            </div>
+            <h3 class="fs-subhead text-on-surface mb-2">Advocacy</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Championing maternal and infant health through education, resources, and community awareness.</p>
+        </div>
+
+        <div class="pillar-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+            <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-primary" style="font-size:24px;">volunteer_activism</span>
+            </div>
+            <h3 class="fs-subhead text-on-surface mb-2">Emergency Support</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Providing contingency funds and relief to single mothers and families in crisis.</p>
+        </div>
+
+        <div class="pillar-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+            <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-primary" style="font-size:24px;">pregnant_woman</span>
+            </div>
+            <h3 class="fs-subhead text-on-surface mb-2">Maternal Care</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Offering care and resources to pregnant women throughout their gestation period.</p>
+        </div>
+
+        <div class="pillar-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+            <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-primary" style="font-size:24px;">school</span>
+            </div>
+            <h3 class="fs-subhead text-on-surface mb-2">Child Education</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Ensuring disadvantaged children receive the educational tools and support they need to succeed.</p>
+        </div>
+
+        <div class="pillar-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+            <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-primary" style="font-size:24px;">diversity_3</span>
+            </div>
+            <h3 class="fs-subhead text-on-surface mb-2">Women Empowerment</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Equipping rural women with skills and opportunities to overcome poverty and become self-reliant.</p>
+        </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="reveal px-5 md:px-margin-desktop max-w-3xl mx-auto py-14 md:py-20">
+    <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">About Us</span>
+    <p class="text-on-surface-variant leading-relaxed fs-body-lg mb-10">Blue Baby Support Initiative (BBSI) is a non-profit organization dedicated to advocating for the welfare and inclusion of vulnerable children in Nigeria, focusing on children's health, education, and the welfare of women. Founded to serve as a bridge for the less privileged, BBSI is committed to creating brighter futures for children and supporting women in need.</p>
+
+    <div class="rounded-xl bg-surface-container-low border border-outline-variant p-6 sm:p-8 mb-10">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-primary" style="font-size:26px;">favorite</span>
+            <h2 class="fs-subhead text-on-surface">Our Motivation</h2>
+        </div>
+        <p class="text-on-surface-variant leading-relaxed">BBSI was inspired by the personal experience of its Founder, Aisha Ogieriakhi, whose child was diagnosed with Asphyxia, commonly known as Blue Baby Syndrome, during childbirth. This led to a difficult journey that included time in the ICU, where many other children did not survive this illness. This traumatic experience, coupled with her struggle with postpartum disorder, drove Aisha to create BBSI in June 2018 to ensure that no family faces these hardships alone. BBSI works tirelessly toward Sustainable Development Goals (SDGs) 2, 3, 4, and 5, aiming to end hunger, ensure health and well-being, sustainable development and achieve gender equality.</p>
+    </div>
+
+    <div class="rounded-xl bg-surface-container-low border border-outline-variant p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-primary" style="font-size:26px;">flag</span>
+            <h2 class="fs-subhead text-on-surface">Our Purpose</h2>
+        </div>
+        <p class="text-on-surface-variant leading-relaxed">Millions of Nigerian children still lack access to basic needs, facing avoidable health crises, educational neglect, and social vulnerabilities. We believe no child should face an uncertain future because of circumstances beyond their control. Through BBSI, we commit to giving children the healthiest possible start in life, standing as a beacon of hope for those facing severe disadvantages.</p>
+    </div>
+</section>
+
+<section class="reveal py-14 md:py-20 px-5 md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div>
+            <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">Our Work</span>
+            <p class="text-on-surface-variant leading-relaxed mb-4">BBSI has made significant strides through various initiatives since its inception, driven by a comprehensive approach encompassing child education, healthcare, skill acquisition, and youth livelihood. Our impact is seen across multiple Nigerian communities where we've partnered with public schools, rural hospitals, and primary healthcare centers, providing medical aid, food, and educational materials.</p>
+            <p class="text-on-surface-variant leading-relaxed mb-4">Through the BBSI Scholarship Scheme, we sponsor school fees, distribute school uniforms and sandals, and provide learning materials to ensure that more children have the opportunity for education.</p>
+            <p class="text-on-surface-variant leading-relaxed">Additionally, we supply vital equipment for healthcare centers, particularly targeting issues like asphyxia and postpartum disorder. By offering support through food provision and medical aid, BBSI is helping to shape a safer, healthier, and more equitable future for vulnerable children.</p>
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg">
+            <img src="images/about-work-2.jpg" alt="BBSI team with school children during an outreach program" class="w-full h-72 md:h-[460px] object-cover"/>
+        </div>
+    </div>
+
+    <div class="mt-14 md:mt-20 rounded-2xl bg-gradient-to-br from-primary to-tertiary p-8 sm:p-12 text-center">
+        <span class="material-symbols-outlined text-white mb-3 inline-block" style="font-size:32px;">emoji_events</span>
+        <h2 class="fs-headline text-white mb-4">Our Impact</h2>
+        <p class="text-white/90 max-w-2xl mx-auto leading-relaxed">Our initiatives have laid the groundwork for children to gain critical skills, confidence, and resilience. We believe that empowered children grow into responsible, socially conscious adults. Our programs work to foster responsibility, character, and a drive to create positive change.</p>
+    </div>
+</section>
+
+<section id="our-team" class="reveal bg-surface-container-low py-14 md:py-20 px-5 md:px-margin-desktop">
+    <div class="max-w-3xl mx-auto text-center mb-10 md:mb-14">
+        <span class="fs-label text-primary bg-white px-4 py-1.5 rounded-full inline-block mb-5">Our Team</span>
+        <h2 class="fs-headline text-on-surface mb-4">Celebrating 6 Years of Blue Baby Support</h2>
+        <p class="text-on-surface-variant leading-relaxed">BBSI's team consists of innovative, passionate youth and dedicated medical professionals equipped to champion our mission and address the pressing needs of those we serve. Our dedicated team brings together expertise in project management, community outreach, fundraising, advocacy, and research, united by a shared passion to build a better future for all.</p>
+    </div>
+    <div class="reveal max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+        <img src="images/about-team.jpg" alt="Blue Baby Support Initiative team, celebrating 6 years of impact and service, led by Founder Mama Blue" class="w-full h-auto object-cover"/>
+    </div>
+</section>
+
+<section class="reveal py-14 md:py-20 px-5 md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="max-w-2xl mb-10 md:mb-14">
+        <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">Key Projects</span>
+        <h2 class="fs-headline text-on-surface">What We're Building on the Ground</h2>
+    </div>
+    <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        
+        <div class="pillar-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-28 w-full flex items-center justify-center bg-gradient-to-br from-primary to-tertiary">
+                <span class="material-symbols-outlined text-white" style="font-size:38px;">backpack</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="fs-subhead text-on-surface mb-2">Project Back-to-School</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">This project provides school uniforms, shoes, writing materials, and other essentials to public school children. We also sponsor students through our BBSI Scholarship Scheme and have provided shelter to homeless families.</p>
+            </div>
+        </div>
+
+        <div class="pillar-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-28 w-full flex items-center justify-center bg-gradient-to-br from-primary to-tertiary">
+                <span class="material-symbols-outlined text-white" style="font-size:38px;">groups</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="fs-subhead text-on-surface mb-2">Outreach Programs</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">We hold medical outreaches, organize festive events, and regularly feed and empower vulnerable families across Nigeria, including communities in Benue, Ebutte Metta, Ikorodu, Abeokuta, and Ibadan.</p>
+            </div>
+        </div>
+
+        <div class="pillar-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-28 w-full flex items-center justify-center bg-gradient-to-br from-primary to-tertiary">
+                <span class="material-symbols-outlined text-white" style="font-size:38px;">medical_services</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="fs-subhead text-on-surface mb-2">Medical Interventions</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">We support rural women with pregnancy education, distribute essential equipment to rural centers, and offer intensive maternal health education. Our outreach also addresses teenage pregnancy, child marriage, and critical maternal health needs.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="reveal bg-supportive-sky py-14 md:py-20 px-5 md:px-margin-desktop">
+    <div class="max-w-3xl mx-auto">
+        <span class="fs-label text-primary bg-white px-4 py-1.5 rounded-full inline-block mb-5">Our Approach to Change</span>
+        <h2 class="fs-headline text-on-surface mb-8">BBSI is dedicated to creating sustainable change through:</h2>
+        <ul class="space-y-7 mb-10">
+            
+        <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary shrink-0 mt-0.5" style="font-size:24px;">handshake</span>
+            <div>
+                <p class="fs-subhead text-on-surface mb-1">Advocacy & Partnership</p>
+                <p class="text-on-surface-variant leading-relaxed">Working with local initiatives to promote maternal and child health and combat harmful cultural practices.</p>
+            </div>
+        </li>
+
+        <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary shrink-0 mt-0.5" style="font-size:24px;">workspace_premium</span>
+            <div>
+                <p class="fs-subhead text-on-surface mb-1">Empowerment Programs</p>
+                <p class="text-on-surface-variant leading-relaxed">Developing income-generating skills for rural women, aiding in poverty reduction, and supporting decent employment.</p>
+            </div>
+        </li>
+
+        <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary shrink-0 mt-0.5" style="font-size:24px;">foundation</span>
+            <div>
+                <p class="fs-subhead text-on-surface mb-1">Long-Term Projects</p>
+                <p class="text-on-surface-variant leading-relaxed">Establishing an orphanage, building an inclusive school for children with disabilities, and creating a cooperative (Prego-Preneur) to support mothers from pregnancy to three years postpartum.</p>
+            </div>
+        </li>
+
+        </ul>
+        <p class="fs-body-lg text-on-surface-variant leading-relaxed italic border-l-4 border-primary pl-5">BBSI is committed to bridging societal gaps and reducing inequalities, ensuring that the most vulnerable are supported, empowered, and equipped to succeed. Through these initiatives, we strive to build a foundation for a healthier and more inclusive society.</p>
+    </div>
+</section>
+
+<section class="reveal relative overflow-hidden text-on-primary py-14 md:py-20 text-center px-5">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary to-tertiary"></div>
+    <div class="relative max-w-2xl mx-auto">
+        <h2 class="fs-display mb-6">We can't help everyone,<br/>but everyone can help someone</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8">
+            <a class="inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-8 py-4 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md" href="donate.html">
+                Donate now
+            </a>
+            <a class="inline-flex justify-center items-center border-2 border-on-primary text-on-primary fs-label px-8 py-4 rounded-lg hover:bg-on-primary hover:text-primary transition-all" href="https://bbsinitiative.org/contact/" target="_blank" rel="noopener">
+                Become a volunteer
+            </a>
+        </div>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 fs-body-lg">
+            <a href="tel:+2348033342104" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined" style="font-size:20px;">call</span> +234-803-3342-104
+            </a>
+            <a href="mailto:info@bbsinitiative.org" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined" style="font-size:20px;">mail</span> info@bbsinitiative.org
+            </a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+    <div class="w-full py-12 md:py-section-gap-md px-5 md:px-margin-desktop max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row justify-between gap-10 md:gap-gutter mb-10">
+            <div class="flex flex-col gap-4 max-w-sm">
+                <div class="flex items-center gap-2.5">
+                    <img src="logo.png" alt="Blue Baby Support Initiative logo" class="h-11 w-11 object-contain"/>
+                    <span class="font-display text-headline-md font-bold text-primary">BBSI</span>
+                </div>
+                <p class="text-on-surface-variant leading-relaxed">Every year, countless women and children face preventable health risks and hardships due to a lack of access to resources. At Blue Baby Support Initiative, we are here to stand in the gap, provide relief, and offer hope for a brighter future.</p>
+                <div class="flex gap-4 mt-2">
+                    <a class="text-on-surface-variant hover:text-primary transition-colors" href="mailto:info@bbsinitiative.org">
+                        <span class="material-symbols-outlined" style="font-size:22px;">mail</span>
+                    </a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors" href="tel:+2348033342104">
+                        <span class="material-symbols-outlined" style="font-size:22px;">phone</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-x-8 gap-y-4 md:justify-end content-start">
+                <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Privacy Policy</a>
+                <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Terms of Service</a>
+                <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#contact">Contact Us</a>
+                <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Annual Reports</a>
+                <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Careers</a>
+            </div>
+        </div>
+        <p class="text-sm text-outline">© 2026 Blue Baby Support Initiative. Standing in the gap for maternal and child health.</p>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var openBtn = document.getElementById('menu-open-btn');
+    var closeBtn = document.getElementById('menu-close-btn');
+    var panel = document.getElementById('mobile-menu-panel');
+    var backdrop = document.getElementById('mobile-menu-backdrop');
+    var body = document.body;
+
+    function openMenu(){
+        panel.classList.add('open');
+        backdrop.classList.add('open');
+        body.classList.add('menu-locked');
+        openBtn.setAttribute('aria-expanded','true');
+    }
+    function closeMenu(){
+        panel.classList.remove('open');
+        backdrop.classList.remove('open');
+        body.classList.remove('menu-locked');
+        openBtn.setAttribute('aria-expanded','false');
+    }
+    if (openBtn) openBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+    document.querySelectorAll('[data-menu-link]').forEach(function(link){
+        link.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+        revealEls.forEach(function(el){ el.classList.add('in-view'); });
+    }
+})();
+</script>
+</body>
+</html>
