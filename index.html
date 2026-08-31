@@ -153,6 +153,28 @@
     .tour-frame:hover { transform: scale(1.03); }
 
     .quote-mark { font-family: Georgia, serif; }
+
+    /* ---- Story cards ---- */
+    .story-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .story-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -16px rgba(0,90,156,0.28); }
+
+    /* ---- Newsletter ---- */
+    @keyframes float-blob {
+        0%, 100% { transform: translate(0,0) scale(1); }
+        33% { transform: translate(20px,-15px) scale(1.08); }
+        66% { transform: translate(-15px,10px) scale(0.95); }
+    }
+    .blob { animation: float-blob 10s ease-in-out infinite; }
+    .blob-delay { animation-delay: 2.5s; }
+    @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(253,162,33,0.45); }
+        70% { box-shadow: 0 0 0 14px rgba(253,162,33,0); }
+        100% { box-shadow: 0 0 0 0 rgba(253,162,33,0); }
+    }
+    .pulse-btn:hover { animation: pulse-ring 1.4s ease-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+        .blob, .pulse-btn:hover { animation: none !important; }
+    }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
@@ -169,7 +191,7 @@
     <nav class="hidden md:flex items-center gap-8">
         <a class="fs-label text-primary border-b-2 border-primary pb-1 font-bold" href="#top">Home</a>
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#pillars">What We Do</a>
-        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#media-tour">Success Stories</a>
+        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#success-stories">Success Stories</a>
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#contact">Get Involved</a>
     </nav>
     <!-- Trailing Action -->
@@ -197,7 +219,7 @@
     <nav class="flex flex-col px-5 py-6 gap-1">
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="#top">Home</a>
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="#pillars">What We Do</a>
-        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="#media-tour">Success Stories</a>
+        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="#success-stories">Success Stories</a>
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="#contact">Get Involved</a>
     </nav>
     <div class="mt-auto p-5">
@@ -415,6 +437,91 @@
     </div>
 </section>
 
+<!-- Our Success Stories -->
+<section id="success-stories" class="reveal py-14 md:py-section-gap-lg px-5 md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="max-w-2xl mb-10 md:mb-14">
+        <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-4">Our Success Stories</span>
+        <h2 class="fs-headline text-on-surface mb-4">Moments That Define Our Journey</h2>
+        <p class="text-on-surface-variant leading-relaxed">From media features to festive outreaches, here are some of the stories of hope, love, and impact we've created together across communities in Nigeria. Tap any story to read the full moment.</p>
+    </div>
+
+    <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+        <a href="story1.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="images/story1-city-people.jpg" alt="BBSI Founder Aisha Dania Ogieriakhi featured in City People Magazine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">February 3, 2026</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">BBSI Founder Featured in City People Magazine</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Our founder Aisha Dania Ogieriakhi was featured in City People Magazine — a wonderful way to kickstart 2026.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+        <a href="story2.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="images/story2-party-flyer.jpg" alt="BBSI Children's Day Celebration with Immaculate Children Home" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">May 27, 2025</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">BBSI Children's Day Celebration</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Celebrating the beauty, resilience, and dreams of children with special needs, in partnership with Immaculate Children Home.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+        <a href="story3.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="m1.jpg" alt="BBSI Media Tour at 32FM Oyo State" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">January 11, 2025</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">BBSI Media Tour at 32FM Oyo State</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Our founder Aisha Dania Ogieriakhi (Mama Blue) shared insights into our ongoing projects and the action plan for 2025.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+        <a href="story4.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="images/story4-1.jpg" alt="2025 Friends of Hope Outreach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">February 3, 2026</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">2025 Friends of Hope Outreach</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Our founder surprised dedicated volunteers with her presence, alongside her friends, to celebrate with our beneficiaries.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+        <a href="story5.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="images/story5-1.jpg" alt="BBSI Christmas In A Box Outreach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">January 11, 2025</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">BBSI Christmas In A Box Outreach</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Radiant smiles and heartfelt joy in Abeokuta, a testament to the impact of BBSI even in challenging economic times.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+        <a href="story6.html" class="story-card group rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col">
+            <div class="h-52 w-full overflow-hidden">
+                <img src="images/story6-1.jpg" alt="BBSI's Educational Support for students from the Methodist Basic School, Ibadan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <span class="fs-label text-secondary mb-2">August 4, 2023</span>
+                <h3 class="fs-subhead text-on-surface mb-2 group-hover:text-primary transition-colors">Educational Support at Methodist Basic School, Ibadan</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed mb-4 flex-1">Equipping students with backpacks and school supplies to help them thrive in the new school year.</p>
+                <span class="fs-label text-primary inline-flex items-center gap-1">Read more <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span></span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
 <!-- Call to Action -->
 <section class="reveal relative overflow-hidden text-on-primary py-14 md:py-section-gap-lg text-center px-5">
     <div class="absolute inset-0 bg-gradient-to-br from-primary to-tertiary"></div>
@@ -469,6 +576,32 @@
                 </button>
             </div>
         </form>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="reveal relative overflow-hidden px-5 md:px-margin-desktop py-14 md:py-section-gap-md">
+    <div class="relative max-w-container-max mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-primary via-tertiary to-primary p-8 sm:p-12 md:p-16 text-center">
+        <div class="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-secondary-container/30 blob"></div>
+        <div class="absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-on-primary/10 blob blob-delay"></div>
+        <div class="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-success-teal/20 blob" style="animation-delay:1.2s;"></div>
+
+        <div class="relative">
+            <span class="material-symbols-outlined text-on-primary mb-3 inline-block" style="font-size:36px;">mark_email_unread</span>
+            <h2 class="fs-headline text-on-primary mb-3">Stay in the loop</h2>
+            <p class="text-on-primary/85 max-w-md mx-auto mb-8 leading-relaxed">Join our newsletter for stories of impact, upcoming outreaches, and ways you can stand in the gap with us.</p>
+
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="return handleNewsletterSubmit(event)">
+                <label for="newsletter-email" class="sr-only">Email address</label>
+                <input id="newsletter-email" type="email" required placeholder="Enter your email address" class="flex-1 rounded-lg px-5 py-3.5 bg-on-primary/95 text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary-container"/>
+                <button type="submit" class="pulse-btn inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-7 py-3.5 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md whitespace-nowrap">
+                    Subscribe
+                </button>
+            </form>
+            <p id="newsletter-success" class="hidden mt-4 text-on-primary fs-label inline-flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined" style="font-size:18px;">check_circle</span> Thanks for subscribing — welcome to the family!
+            </p>
+        </div>
     </div>
 </section>
 </main>
@@ -586,6 +719,20 @@
         counters.forEach(function(el){ animateCounter(el); });
     }
 })();
+
+function handleNewsletterSubmit(e){
+    e.preventDefault();
+    var form = document.getElementById('newsletter-form');
+    var success = document.getElementById('newsletter-success');
+    var input = document.getElementById('newsletter-email');
+    if (form && success) {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+    }
+    // TODO: wire this up to your real email provider (Mailchimp, Brevo, etc.)
+    console.log('Newsletter subscribe:', input ? input.value : '');
+    return false;
+}
 </script>
 </body>
 </html>
