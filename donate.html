@@ -150,7 +150,12 @@
         .blob, .pulse-btn:hover { animation: none !important; }
     }
 </style>
+
+<style>
+    .copy-row { transition: background 0.2s ease; }
+</style>
 </head>
+
 <body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
 
 <header class="bg-surface/95 backdrop-blur-md fixed w-full top-0 z-50 shadow-[0px_8px_24px_rgba(0,90,156,0.08)]">
@@ -162,7 +167,7 @@
     <nav class="hidden md:flex items-center gap-8">
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#top">Home</a>
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#pillars">What We Do</a>
-        <a class="fs-label text-primary border-b-2 border-primary pb-1 font-bold" href="index.html#success-stories">Success Stories</a>
+        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#success-stories">Success Stories</a>
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#contact">Get Involved</a>
     </nav>
     <div class="flex items-center gap-2 md:gap-4">
@@ -200,118 +205,141 @@
 <main>
 
 <!-- Donate Hero -->
-<section class="relative w-full min-h-[55vh] md:min-h-[60vh] flex items-end pt-24 md:pt-32 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <img src="images/story4-2.jpg" alt="BBSI volunteers and beneficiaries at a Friends of Hope outreach" class="w-full h-full object-cover"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-on-background/85 via-on-background/45 to-on-background/10"></div>
-    </div>
-    <div class="relative z-10 w-full px-5 md:px-margin-desktop max-w-3xl mx-auto pb-10 md:pb-14">
-        <a href="index.html" class="inline-flex items-center gap-1.5 fs-label text-on-primary/90 mb-5 hover:gap-2.5 transition-all">
+<section class="relative w-full pt-24 md:pt-32 pb-12 md:pb-16 bg-supportive-sky overflow-hidden">
+    <div class="px-5 md:px-margin-desktop max-w-container-max mx-auto">
+        <a href="index.html" class="inline-flex items-center gap-1.5 fs-label text-primary mb-6 hover:gap-2.5 transition-all">
             <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> Back to Home
         </a>
-        <span class="inline-block fs-label text-on-primary bg-white/15 backdrop-blur-sm border border-white/25 px-4 py-1.5 rounded-full mb-4">Support Our Mission</span>
-        <h1 class="fs-display font-display text-white mb-4">How to Donate</h1>
-        <p class="fs-body-lg text-white/90 max-w-xl">Every year, countless women and children face preventable health risks and hardships due to a lack of access to resources. At Blue Baby Support Initiative, we are here to stand in the gap, provide relief, and offer hope for a brighter future.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+                <span class="inline-block fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full mb-4">Support Our Mission</span>
+                <h1 class="fs-display font-display text-on-surface mb-5">How to Donate</h1>
+                <p class="fs-body-lg text-on-surface-variant max-w-xl">Every year, countless women and children face preventable health risks and hardships due to a lack of access to resources. At Blue Baby Support Initiative, we are here to stand in the gap, provide relief, and offer hope for a brighter future.</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-lg">
+                <img src="images/story4-2.jpg" alt="BBSI volunteers and beneficiaries at a Friends of Hope outreach" class="w-full h-64 sm:h-80 lg:h-96 object-cover"/>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Bank details + how to donate -->
-<section class="reveal px-5 md:px-margin-desktop max-w-3xl mx-auto -mt-8 md:-mt-12 relative z-10 mb-14 md:mb-20">
-    <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,90,156,0.3)] bg-surface-container-lowest">
+<section class="reveal px-5 md:px-margin-desktop max-w-container-max mx-auto py-14 md:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-start">
 
-        <div class="bg-gradient-to-br from-primary to-tertiary p-6 sm:p-8">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-white" style="font-size:32px;">account_balance</span>
-                <h2 class="fs-subhead text-white">Donate via Bank Transfer</h2>
+        <!-- Left: how-to steps -->
+        <div class="lg:col-span-3 space-y-8">
+
+            <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,90,156,0.18)] bg-surface-container-lowest">
+                <div class="bg-gradient-to-br from-primary to-tertiary p-6 sm:p-8">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-white" style="font-size:30px;">account_balance</span>
+                        <h2 class="fs-subhead text-white">Donate via Bank Transfer</h2>
+                    </div>
+                </div>
+
+                <div class="p-5 sm:p-8 space-y-4">
+                    <div class="copy-row flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 rounded-lg bg-surface-container-low px-5 py-4">
+                        <p class="fs-label text-on-surface-variant">Bank Name</p>
+                        <p class="fs-subhead text-on-surface">Sterling Bank</p>
+                    </div>
+
+                    <div class="copy-row flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 rounded-lg bg-surface-container-low px-5 py-4">
+                        <p class="fs-label text-on-surface-variant">Account Name</p>
+                        <p class="fs-subhead text-on-surface">Blue Baby Support Initiative</p>
+                    </div>
+
+                    <div class="copy-row flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 rounded-lg bg-primary-fixed px-5 py-4">
+                        <div>
+                            <p class="fs-label text-on-primary-fixed-variant mb-1">Account Number</p>
+                            <p class="fs-subhead sm:fs-headline text-primary tracking-wide" id="acct-number">0069105172</p>
+                        </div>
+                        <button type="button" onclick="copyAccountNumber()" id="copy-btn" class="w-full sm:w-auto shrink-0 inline-flex justify-center items-center gap-1.5 fs-label text-primary bg-white px-4 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all">
+                            <span class="material-symbols-outlined" style="font-size:18px;" id="copy-icon">content_copy</span>
+                            <span id="copy-text">Copy account number</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-2xl bg-supportive-sky border border-outline-variant p-5 sm:p-8">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="material-symbols-outlined text-primary" style="font-size:28px;">task_alt</span>
+                    <h2 class="fs-subhead text-on-surface">After Your Transfer</h2>
+                </div>
+                <p class="text-on-surface-variant leading-relaxed mb-6">To help us acknowledge your generosity, kindly send a confirmation of your transfer to:</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <a href="mailto:info@bbsinitiative.org" class="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-sm hover:shadow-md transition-all min-w-0">
+                        <span class="material-symbols-outlined text-primary shrink-0" style="font-size:24px;">mail</span>
+                        <div class="min-w-0">
+                            <p class="fs-label text-on-surface-variant">Email</p>
+                            <p class="text-on-surface font-semibold break-words">info@bbsinitiative.org</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/2348033342104" target="_blank" rel="noopener" class="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-sm hover:shadow-md transition-all min-w-0">
+                        <span class="material-symbols-outlined text-success-teal shrink-0" style="font-size:24px;">chat</span>
+                        <div class="min-w-0">
+                            <p class="fs-label text-on-surface-variant">WhatsApp</p>
+                            <p class="text-on-surface font-semibold">0803 334 2104</p>
+                        </div>
+                    </a>
+                </div>
+
+                <p class="fs-label text-on-surface mb-4">Please include:</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
+                        <span class="text-on-surface-variant">Your Full Name</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
+                        <span class="text-on-surface-variant">Amount Donated</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
+                        <span class="text-on-surface-variant">Purpose (if any, e.g., "For Education Program")</span>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div class="p-6 sm:p-8 space-y-4">
-            <div class="flex items-center justify-between gap-4 rounded-lg bg-surface-container-low px-5 py-4">
-                <div>
-                    <p class="fs-label text-on-surface-variant mb-1">Bank Name</p>
-                    <p class="fs-subhead text-on-surface">Sterling Bank</p>
+        <!-- Right: sticky highlight card, fills the space on wide screens -->
+        <div class="lg:col-span-2">
+            <div class="lg:sticky lg:top-28 space-y-6">
+                <div class="rounded-2xl bg-gradient-to-br from-primary to-tertiary p-7 sm:p-8 text-center text-on-primary">
+                    <span class="material-symbols-outlined mb-3 inline-block" style="font-size:32px;">volunteer_activism</span>
+                    <h3 class="fs-subhead mb-3">Why your gift matters</h3>
+                    <p class="text-on-primary/85 leading-relaxed">A single donation can fund emergency relief for a mother in crisis, school supplies for a child, or life-saving equipment for a rural health centre. You decide the size, we make sure it counts.</p>
                 </div>
-                <span class="material-symbols-outlined text-primary" style="font-size:26px;">account_balance</span>
-            </div>
 
-            <div class="flex items-center justify-between gap-4 rounded-lg bg-surface-container-low px-5 py-4">
-                <div>
-                    <p class="fs-label text-on-surface-variant mb-1">Account Name</p>
-                    <p class="fs-subhead text-on-surface">Blue Baby Support Initiative</p>
+                <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant p-7 sm:p-8">
+                    <h3 class="fs-subhead text-on-surface mb-4">Prefer to talk it through?</h3>
+                    <p class="text-on-surface-variant leading-relaxed mb-5">Reach out directly and a member of our team will guide you.</p>
+                    <div class="flex flex-col gap-3">
+                        <a href="tel:+2348033342104" class="inline-flex items-center gap-2 fs-label text-primary hover:opacity-80 transition-opacity">
+                            <span class="material-symbols-outlined" style="font-size:20px;">call</span> +234-803-3342-104
+                        </a>
+                        <a href="mailto:info@bbsinitiative.org" class="inline-flex items-center gap-2 fs-label text-primary hover:opacity-80 transition-opacity">
+                            <span class="material-symbols-outlined" style="font-size:20px;">mail</span> info@bbsinitiative.org
+                        </a>
+                    </div>
                 </div>
-                <span class="material-symbols-outlined text-primary" style="font-size:26px;">badge</span>
-            </div>
-
-            <div class="flex items-center justify-between gap-4 rounded-lg bg-primary-fixed px-5 py-4">
-                <div>
-                    <p class="fs-label text-on-primary-fixed-variant mb-1">Account Number</p>
-                    <p class="fs-headline text-primary tracking-wide" id="acct-number">0069105172</p>
-                </div>
-                <button type="button" onclick="copyAccountNumber()" id="copy-btn" class="shrink-0 inline-flex items-center gap-1.5 fs-label text-primary bg-white px-4 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all">
-                    <span class="material-symbols-outlined" style="font-size:18px;" id="copy-icon">content_copy</span>
-                    <span id="copy-text">Copy</span>
-                </button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- After your transfer -->
-<section class="reveal px-5 md:px-margin-desktop max-w-3xl mx-auto mb-16 md:mb-20">
-    <div class="rounded-2xl bg-supportive-sky border border-outline-variant p-6 sm:p-10">
-        <div class="flex items-center gap-3 mb-5">
-            <span class="material-symbols-outlined text-primary" style="font-size:30px;">task_alt</span>
-            <h2 class="fs-subhead text-on-surface">After Your Transfer</h2>
-        </div>
-        <p class="text-on-surface-variant leading-relaxed mb-6">To help us acknowledge your generosity, kindly send a confirmation of your transfer to:</p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            <a href="mailto:info@bbsinitiative.org" class="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-sm hover:shadow-md transition-all">
-                <span class="material-symbols-outlined text-primary" style="font-size:24px;">mail</span>
-                <div>
-                    <p class="fs-label text-on-surface-variant">Email</p>
-                    <p class="text-on-surface font-semibold">info@bbsinitiative.org</p>
-                </div>
-            </a>
-            <a href="https://wa.me/2348033342104" target="_blank" rel="noopener" class="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-sm hover:shadow-md transition-all">
-                <span class="material-symbols-outlined text-success-teal" style="font-size:24px;">chat</span>
-                <div>
-                    <p class="fs-label text-on-surface-variant">WhatsApp</p>
-                    <p class="text-on-surface font-semibold">0803 334 2104</p>
-                </div>
-            </a>
-        </div>
-
-        <p class="fs-label text-on-surface mb-4">Please include:</p>
-        <ul class="space-y-3">
-            <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
-                <span class="text-on-surface-variant">Your Full Name</span>
-            </li>
-            <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
-                <span class="text-on-surface-variant">Amount Donated</span>
-            </li>
-            <li class="flex items-start gap-3">
-                <span class="material-symbols-outlined text-primary shrink-0" style="font-size:22px;">check_circle</span>
-                <span class="text-on-surface-variant">Purpose (if any, e.g., "For Education Program")</span>
-            </li>
-        </ul>
-    </div>
-</section>
-
-<!-- Thank you CTA -->
-<section class="reveal relative overflow-hidden text-on-primary py-14 md:py-20 text-center px-5 mx-5 md:mx-margin-desktop max-w-container-max lg:mx-auto rounded-2xl mb-16 md:mb-24">
+<section class="reveal relative overflow-hidden text-on-primary py-14 md:py-20 text-center px-5">
     <div class="absolute inset-0 bg-gradient-to-br from-primary to-tertiary"></div>
-    <div class="relative max-w-xl mx-auto">
+    <div class="relative max-w-2xl mx-auto">
         <h2 class="fs-headline mb-4">Thank you for standing in the gap with us</h2>
-        <p class="text-on-primary/85 mb-7">Every donation, big or small, brings hope to a mother or child who needs it most.</p>
+        <p class="text-on-primary/85 mb-8">Every donation, big or small, brings hope to a mother or child who needs it most.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <a class="inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-7 py-3.5 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md" href="index.html#success-stories">
+            <a class="inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-8 py-4 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md" href="index.html#success-stories">
                 See our impact
             </a>
-            <a class="inline-flex justify-center items-center border-2 border-on-primary text-on-primary fs-label px-7 py-3.5 rounded-lg hover:bg-on-primary hover:text-primary transition-all" href="index.html#contact">
+            <a class="inline-flex justify-center items-center border-2 border-on-primary text-on-primary fs-label px-8 py-4 rounded-lg hover:bg-on-primary hover:text-primary transition-all" href="index.html#contact">
                 Contact us
             </a>
         </div>
@@ -404,10 +432,10 @@ function copyAccountNumber(){
     var textEl = document.getElementById('copy-text');
     function showCopied(){
         iconEl.textContent = 'check';
-        textEl.textContent = 'Copied';
+        textEl.textContent = 'Copied!';
         setTimeout(function(){
             iconEl.textContent = 'content_copy';
-            textEl.textContent = 'Copy';
+            textEl.textContent = 'Copy account number';
         }, 1800);
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
