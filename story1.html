@@ -161,7 +161,20 @@
     </a>
     <nav class="hidden md:flex items-center gap-8">
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#top">Home</a>
-        <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#pillars">What We Do</a>
+        <div class="relative">
+            <button type="button" id="wwd-trigger" aria-haspopup="true" aria-expanded="false" class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 inline-flex items-center gap-1">
+                What We Do
+                <span class="material-symbols-outlined transition-transform duration-200" id="wwd-caret" style="font-size:18px;">expand_more</span>
+            </button>
+            <div id="wwd-panel" class="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant py-2 opacity-0 invisible -translate-y-1 transition-all duration-200 z-50">
+                <a href="what-we-do.html" class="block px-5 py-2.5 fs-label text-primary font-bold hover:bg-surface-container-low transition-colors">Overview</a>
+                <div class="h-px bg-outline-variant my-1 mx-2"></div>
+                <a href="health.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Maternal Health Support</a>
+                <a href="child.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Child Education</a>
+                <a href="women.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Rural Women Empowerment</a>
+                <a href="advocacy.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Advocacy &amp; Awareness</a>
+            </div>
+        </div>
         <a class="fs-label text-primary border-b-2 border-primary pb-1 font-bold" href="index.html#success-stories">Success Stories</a>
         <a class="fs-label text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="index.html#contact">Get Involved</a>
     </nav>
@@ -186,7 +199,19 @@
     </div>
     <nav class="flex flex-col px-5 py-6 gap-1">
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#top">Home</a>
-        <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#pillars">What We Do</a>
+        <div>
+            <button type="button" id="wwd-mobile-trigger" aria-expanded="false" class="w-full flex items-center justify-between fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant">
+                What We Do
+                <span class="material-symbols-outlined transition-transform duration-200" id="wwd-mobile-caret">expand_more</span>
+            </button>
+            <div id="wwd-mobile-panel" class="hidden flex-col border-b border-outline-variant">
+                <a data-menu-link class="py-2.5 pl-2 text-primary font-semibold" href="what-we-do.html">Overview</a>
+                <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="health.html">Maternal Health Support</a>
+                <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="child.html">Child Education</a>
+                <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="women.html">Rural Women Empowerment</a>
+                <a data-menu-link class="py-2.5 pl-2 pb-3 text-on-surface-variant" href="advocacy.html">Advocacy &amp; Awareness</a>
+            </div>
+        </div>
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#success-stories">Success Stories</a>
         <a data-menu-link class="fs-body-lg text-on-surface font-semibold py-3 border-b border-outline-variant" href="index.html#contact">Get Involved</a>
     </nav>
@@ -308,6 +333,59 @@
         revealEls.forEach(function(el){ io.observe(el); });
     } else {
         revealEls.forEach(function(el){ el.classList.add('in-view'); });
+    }
+
+    // ---- "What We Do" desktop dropdown ----
+    var wwdTrigger = document.getElementById('wwd-trigger');
+    var wwdPanel = document.getElementById('wwd-panel');
+    var wwdCaret = document.getElementById('wwd-caret');
+    function openDropdown(){
+        if (!wwdPanel) return;
+        wwdPanel.classList.remove('opacity-0','invisible','-translate-y-1');
+        wwdPanel.classList.add('opacity-100','visible','translate-y-0');
+        wwdTrigger.setAttribute('aria-expanded','true');
+        if (wwdCaret) wwdCaret.style.transform = 'rotate(180deg)';
+    }
+    function closeDropdown(){
+        if (!wwdPanel) return;
+        wwdPanel.classList.add('opacity-0','invisible','-translate-y-1');
+        wwdPanel.classList.remove('opacity-100','visible','translate-y-0');
+        wwdTrigger.setAttribute('aria-expanded','false');
+        if (wwdCaret) wwdCaret.style.transform = 'rotate(0deg)';
+    }
+    if (wwdTrigger && wwdPanel) {
+        wwdTrigger.addEventListener('click', function(e){
+            e.stopPropagation();
+            var isOpen = wwdTrigger.getAttribute('aria-expanded') === 'true';
+            if (isOpen) { closeDropdown(); } else { openDropdown(); }
+        });
+        document.addEventListener('click', function(e){
+            if (!wwdPanel.contains(e.target) && e.target !== wwdTrigger) closeDropdown();
+        });
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Escape') closeDropdown();
+        });
+    }
+
+    // ---- "What We Do" mobile accordion ----
+    var wwdMobileTrigger = document.getElementById('wwd-mobile-trigger');
+    var wwdMobilePanel = document.getElementById('wwd-mobile-panel');
+    var wwdMobileCaret = document.getElementById('wwd-mobile-caret');
+    if (wwdMobileTrigger && wwdMobilePanel) {
+        wwdMobileTrigger.addEventListener('click', function(){
+            var isOpen = wwdMobileTrigger.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+                wwdMobilePanel.classList.add('hidden');
+                wwdMobilePanel.classList.remove('flex');
+                wwdMobileTrigger.setAttribute('aria-expanded','false');
+                if (wwdMobileCaret) wwdMobileCaret.style.transform = 'rotate(0deg)';
+            } else {
+                wwdMobilePanel.classList.remove('hidden');
+                wwdMobilePanel.classList.add('flex');
+                wwdMobileTrigger.setAttribute('aria-expanded','true');
+                if (wwdMobileCaret) wwdMobileCaret.style.transform = 'rotate(180deg)';
+            }
+        });
     }
 })();
 </script>
