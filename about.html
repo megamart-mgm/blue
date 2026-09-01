@@ -154,6 +154,31 @@
 <style>
     .pillar-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,90,156,0.25); }
     .pillar-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+    .photo-frame { transition: transform 0.5s ease, box-shadow 0.5s ease; }
+    .photo-frame:hover { transform: scale(1.015); box-shadow: 0 24px 48px -16px rgba(0,90,156,0.3); }
+    .photo-frame img { transition: transform 0.6s ease; }
+    .photo-frame:hover img { transform: scale(1.05); }
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up-1 { animation: fade-up 0.8s ease both; }
+    .fade-up-2 { animation: fade-up 0.8s ease 0.15s both; }
+    .fade-up-3 { animation: fade-up 0.8s ease 0.3s both; }
+
+    @keyframes float-blob {
+        0%, 100% { transform: translate(0,0) scale(1); }
+        33% { transform: translate(18px,-12px) scale(1.06); }
+        66% { transform: translate(-12px,10px) scale(0.96); }
+    }
+    .blob { animation: float-blob 11s ease-in-out infinite; }
+    .blob-delay { animation-delay: 2.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .photo-frame, .photo-frame img, .fade-up-1, .fade-up-2, .fade-up-3, .blob { animation: none !important; transition: none !important; }
+    }
 </style>
 </head>
 
@@ -206,18 +231,24 @@
 <main>
 
 <!-- About Hero -->
-<section class="relative w-full min-h-[60vh] md:min-h-[65vh] flex items-end pt-24 md:pt-32 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <img src="images/about-hero.jpg" alt="BBSI team members standing together in celebration" class="w-full h-full object-cover object-top"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/50 to-on-background/15"></div>
-    </div>
-    <div class="relative z-10 w-full px-5 md:px-margin-desktop max-w-container-max mx-auto pb-12 md:pb-16">
-        <a href="index.html" class="inline-flex items-center gap-1.5 fs-label text-on-primary/90 mb-5 hover:gap-2.5 transition-all">
+<section class="relative w-full pt-24 md:pt-32 pb-12 md:pb-16 bg-supportive-sky overflow-hidden">
+    <div class="absolute -top-20 -right-24 w-72 h-72 rounded-full bg-primary-fixed/50 blob"></div>
+    <div class="absolute -bottom-24 -left-16 w-64 h-64 rounded-full bg-secondary-container/25 blob blob-delay"></div>
+
+    <div class="relative px-5 md:px-margin-desktop max-w-container-max mx-auto">
+        <a href="index.html" class="fade-up-1 inline-flex items-center gap-1.5 fs-label text-primary mb-6 hover:gap-2.5 transition-all">
             <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> Back to Home
         </a>
-        <span class="inline-block fs-label text-on-primary bg-white/15 backdrop-blur-sm border border-white/25 px-4 py-1.5 rounded-full mb-4">Founded June 2018</span>
-        <h1 class="fs-display font-display text-white mb-4 max-w-2xl">Welcome to Blue Baby Support Initiative</h1>
-        <p class="fs-body-lg text-white/90 max-w-xl">A dedicated nonprofit organization passionate about making a tangible difference in the lives of underprivileged individuals, especially women and children, across Nigeria.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div class="fade-up-2">
+                <span class="inline-block fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full mb-4">Founded June 2018</span>
+                <h1 class="fs-display font-display text-on-surface mb-5">Welcome to Blue Baby Support Initiative</h1>
+                <p class="fs-body-lg text-on-surface-variant max-w-xl">A dedicated nonprofit organization passionate about making a tangible difference in the lives of underprivileged individuals, especially women and children, across Nigeria.</p>
+            </div>
+            <div class="photo-frame fade-up-3 rounded-2xl overflow-hidden shadow-lg mx-auto w-full max-w-sm lg:max-w-none">
+                <img src="images/about-hero.jpg" alt="BBSI team members standing together in celebration" class="w-full aspect-square object-cover object-[center_25%]"/>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -231,8 +262,8 @@
             <p class="text-on-surface-variant leading-relaxed mb-4">Founded in June 2018, on the belief that every life matters, BBSI was established to address critical challenges faced by women and children in Nigeria. We identified gaps in maternal healthcare, educational support for vulnerable children, and economic empowerment for rural women, and we stepped in to bridge those gaps.</p>
             <p class="text-on-surface-variant leading-relaxed">From providing emergency relief for single mothers to advocating for maternal and infant health, our journey has been one of resilience, collaboration, and relentless pursuit of positive change.</p>
         </div>
-        <div class="rounded-xl overflow-hidden shadow-lg">
-            <img src="images/about-work-1.jpg" alt="BBSI team members at the organization's office" class="w-full h-72 md:h-[420px] lg:h-[480px] object-cover"/>
+        <div class="photo-frame rounded-xl overflow-hidden shadow-lg">
+            <img src="images/about-work-1.jpg" alt="BBSI team members at the organization's office" class="w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] object-cover object-top"/>
         </div>
     </div>
 </section>
@@ -322,8 +353,8 @@
             <p class="text-on-surface-variant leading-relaxed mb-4">Through the BBSI Scholarship Scheme, we sponsor school fees, distribute school uniforms and sandals, and provide learning materials to ensure that more children have the opportunity for education.</p>
             <p class="text-on-surface-variant leading-relaxed">Additionally, we supply vital equipment for healthcare centers, particularly targeting issues like asphyxia and postpartum disorder. By offering support through food provision and medical aid, BBSI is helping to shape a safer, healthier, and more equitable future for vulnerable children.</p>
         </div>
-        <div class="rounded-xl overflow-hidden shadow-lg">
-            <img src="images/about-work-2.jpg" alt="BBSI team with school children during an outreach program" class="w-full h-72 md:h-[420px] lg:h-[480px] object-cover"/>
+        <div class="photo-frame rounded-xl overflow-hidden shadow-lg">
+            <img src="images/about-work-2.jpg" alt="BBSI team with school children during an outreach program" class="w-full aspect-[4/3] object-cover object-top"/>
         </div>
     </div>
 
@@ -340,8 +371,8 @@
         <h2 class="fs-headline text-on-surface mb-4">Celebrating 6 Years of Blue Baby Support</h2>
         <p class="text-on-surface-variant leading-relaxed">BBSI's team consists of innovative, passionate youth and dedicated medical professionals equipped to champion our mission and address the pressing needs of those we serve. Our dedicated team brings together expertise in project management, community outreach, fundraising, advocacy, and research, united by a shared passion to build a better future for all.</p>
     </div>
-    <div class="reveal max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
-        <img src="images/about-team.jpg" alt="Blue Baby Support Initiative team, celebrating 6 years of impact and service, led by Founder Mama Blue" class="w-full h-auto object-contain bg-white"/>
+    <div class="photo-frame reveal max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg bg-white">
+        <img src="images/about-team.jpg" alt="Blue Baby Support Initiative team, celebrating 6 years of impact and service, led by Founder Mama Blue" class="w-full h-auto object-contain"/>
     </div>
 </section>
 
