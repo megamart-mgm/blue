@@ -152,6 +152,11 @@
 </style>
 
 <style>
+    .photo-frame { transition: transform 0.5s ease, box-shadow 0.5s ease; }
+    .photo-frame:hover { transform: scale(1.015); box-shadow: 0 24px 48px -16px rgba(0,90,156,0.3); }
+    .photo-frame img { transition: transform 0.6s ease; }
+    .photo-frame:hover img { transform: scale(1.05); }
+
     .gallery-tile { transition: transform 0.35s ease, box-shadow 0.35s ease; cursor: pointer; }
     .gallery-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -10px rgba(0,90,156,0.28); }
     .gallery-tile img { transition: transform 0.5s ease; }
@@ -269,10 +274,15 @@
         <a href="index.html" class="fade-up-1 inline-flex items-center gap-1.5 fs-label text-primary mb-6 hover:gap-2.5 transition-all">
             <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> Back to Home
         </a>
-        <div class="fade-up-2 max-w-2xl">
-            <span class="inline-block fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full mb-4">Moments in Pictures &amp; Video</span>
-            <h1 class="fs-display font-display text-on-surface mb-5">Our Gallery</h1>
-            <p class="fs-body-lg text-on-surface-variant">A look back at the outreaches, celebrations, and everyday moments where we've stood in the gap for women and children across Nigeria.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div class="fade-up-2">
+                <span class="inline-block fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full mb-4">Moments in Pictures &amp; Video</span>
+                <h1 class="fs-display font-display text-on-surface mb-5">Our Gallery</h1>
+                <p class="fs-body-lg text-on-surface-variant">A look back at the outreaches, celebrations, and everyday moments where we've stood in the gap for women and children across Nigeria.</p>
+            </div>
+            <div class="photo-frame fade-up-3 rounded-2xl overflow-hidden shadow-lg mx-auto w-full max-w-sm lg:max-w-none">
+                <img src="images/child-3.jpg" alt="Pupils holding their new backpacks overhead in celebration" class="w-full aspect-square object-cover"/>
+            </div>
         </div>
     </div>
 </section>
@@ -292,178 +302,202 @@
     <div class="reveal-stagger grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" id="gallery-grid">
         
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="0" onclick="openLightbox(0)">
-            <img src="images/story1-city-people.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="1" onclick="openLightbox(1)">
-            <img src="images/story2-party-flyer.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="2" onclick="openLightbox(2)">
-            <img src="images/story4-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="3" onclick="openLightbox(3)">
-            <img src="images/story4-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="4" onclick="openLightbox(4)">
-            <img src="images/story4-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-5.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="5" onclick="openLightbox(5)">
-            <img src="images/story4-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/commendation-6.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="6" onclick="openLightbox(6)">
-            <img src="images/story5-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story1-city-people.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="7" onclick="openLightbox(7)">
-            <img src="images/story5-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story2-party-flyer.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="8" onclick="openLightbox(8)">
-            <img src="images/story5-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story4-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="9" onclick="openLightbox(9)">
-            <img src="images/story5-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story4-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="10" onclick="openLightbox(10)">
-            <img src="images/story5-5.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story4-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="11" onclick="openLightbox(11)">
-            <img src="images/story6-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story4-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="12" onclick="openLightbox(12)">
-            <img src="images/story6-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story5-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="13" onclick="openLightbox(13)">
-            <img src="images/story6-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+            <img src="images/story5-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
         <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="14" onclick="openLightbox(14)">
+            <img src="images/story5-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="15" onclick="openLightbox(15)">
+            <img src="images/story5-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="16" onclick="openLightbox(16)">
+            <img src="images/story5-5.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="17" onclick="openLightbox(17)">
+            <img src="images/story6-1.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="18" onclick="openLightbox(18)">
+            <img src="images/story6-2.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="19" onclick="openLightbox(19)">
+            <img src="images/story6-3.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
+        </div>
+
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="story" data-index="20" onclick="openLightbox(20)">
             <img src="images/story6-4.jpg" alt="Community Outreach — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="15" onclick="openLightbox(15)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="21" onclick="openLightbox(21)">
             <img src="images/health-1.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="16" onclick="openLightbox(16)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="22" onclick="openLightbox(22)">
             <img src="images/health-10.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="17" onclick="openLightbox(17)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="23" onclick="openLightbox(23)">
             <img src="images/health-2.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="18" onclick="openLightbox(18)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="24" onclick="openLightbox(24)">
             <img src="images/health-3.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="19" onclick="openLightbox(19)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="25" onclick="openLightbox(25)">
             <img src="images/health-4.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="20" onclick="openLightbox(20)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="26" onclick="openLightbox(26)">
             <img src="images/health-5.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="21" onclick="openLightbox(21)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="27" onclick="openLightbox(27)">
             <img src="images/health-6.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="22" onclick="openLightbox(22)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="28" onclick="openLightbox(28)">
             <img src="images/health-7.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="23" onclick="openLightbox(23)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="29" onclick="openLightbox(29)">
             <img src="images/health-8.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="24" onclick="openLightbox(24)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="health" data-index="30" onclick="openLightbox(30)">
             <img src="images/health-9.jpg" alt="Maternal Health — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="25" onclick="openLightbox(25)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="31" onclick="openLightbox(31)">
             <img src="images/child-1.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="26" onclick="openLightbox(26)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="32" onclick="openLightbox(32)">
             <img src="images/child-2.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="27" onclick="openLightbox(27)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="33" onclick="openLightbox(33)">
             <img src="images/child-3.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="28" onclick="openLightbox(28)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="34" onclick="openLightbox(34)">
             <img src="images/child-4.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="29" onclick="openLightbox(29)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="35" onclick="openLightbox(35)">
             <img src="images/child-5.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="30" onclick="openLightbox(30)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="child" data-index="36" onclick="openLightbox(36)">
             <img src="images/child-6.jpg" alt="Child Education — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="31" onclick="openLightbox(31)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="37" onclick="openLightbox(37)">
             <img src="images/women-1.jpg" alt="Women Empowerment — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="32" onclick="openLightbox(32)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="38" onclick="openLightbox(38)">
             <img src="images/women-2.jpg" alt="Women Empowerment — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="33" onclick="openLightbox(33)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="women" data-index="39" onclick="openLightbox(39)">
             <img src="images/women-3.jpg" alt="Women Empowerment — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="34" onclick="openLightbox(34)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="40" onclick="openLightbox(40)">
             <img src="images/advocacy-1.jpg" alt="Advocacy — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="35" onclick="openLightbox(35)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="41" onclick="openLightbox(41)">
             <img src="images/advocacy-2.jpg" alt="Advocacy — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="36" onclick="openLightbox(36)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="42" onclick="openLightbox(42)">
             <img src="images/advocacy-3.jpg" alt="Advocacy — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="37" onclick="openLightbox(37)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="advocacy" data-index="43" onclick="openLightbox(43)">
             <img src="images/advocacy-4.jpg" alt="Advocacy — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="whatwedo" data-index="38" onclick="openLightbox(38)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="whatwedo" data-index="44" onclick="openLightbox(44)">
             <img src="images/whatwedo-collage.jpg" alt="What We Do — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="whatwedo" data-index="39" onclick="openLightbox(39)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="whatwedo" data-index="45" onclick="openLightbox(45)">
             <img src="images/whatwedo-hero.jpg" alt="What We Do — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="40" onclick="openLightbox(40)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="46" onclick="openLightbox(46)">
             <img src="images/about-hero.jpg" alt="About Us — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="41" onclick="openLightbox(41)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="47" onclick="openLightbox(47)">
             <img src="images/about-team.jpg" alt="About Us — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="42" onclick="openLightbox(42)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="48" onclick="openLightbox(48)">
             <img src="images/about-work-1.jpg" alt="About Us — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
-        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="43" onclick="openLightbox(43)">
+        <div class="gallery-tile rounded-xl overflow-hidden shadow-md aspect-square" data-category="about" data-index="49" onclick="openLightbox(49)">
             <img src="images/about-work-2.jpg" alt="About Us — Blue Baby Support Initiative photo" loading="lazy" class="w-full h-full object-cover"/>
         </div>
 
@@ -696,7 +730,7 @@
 </script>
 
 <script>
-    var galleryData = [["images/story1-city-people.jpg", "Community Outreach"], ["images/story2-party-flyer.jpg", "Community Outreach"], ["images/story4-1.jpg", "Community Outreach"], ["images/story4-2.jpg", "Community Outreach"], ["images/story4-3.jpg", "Community Outreach"], ["images/story4-4.jpg", "Community Outreach"], ["images/story5-1.jpg", "Community Outreach"], ["images/story5-2.jpg", "Community Outreach"], ["images/story5-3.jpg", "Community Outreach"], ["images/story5-4.jpg", "Community Outreach"], ["images/story5-5.jpg", "Community Outreach"], ["images/story6-1.jpg", "Community Outreach"], ["images/story6-2.jpg", "Community Outreach"], ["images/story6-3.jpg", "Community Outreach"], ["images/story6-4.jpg", "Community Outreach"], ["images/health-1.jpg", "Maternal Health"], ["images/health-10.jpg", "Maternal Health"], ["images/health-2.jpg", "Maternal Health"], ["images/health-3.jpg", "Maternal Health"], ["images/health-4.jpg", "Maternal Health"], ["images/health-5.jpg", "Maternal Health"], ["images/health-6.jpg", "Maternal Health"], ["images/health-7.jpg", "Maternal Health"], ["images/health-8.jpg", "Maternal Health"], ["images/health-9.jpg", "Maternal Health"], ["images/child-1.jpg", "Child Education"], ["images/child-2.jpg", "Child Education"], ["images/child-3.jpg", "Child Education"], ["images/child-4.jpg", "Child Education"], ["images/child-5.jpg", "Child Education"], ["images/child-6.jpg", "Child Education"], ["images/women-1.jpg", "Women Empowerment"], ["images/women-2.jpg", "Women Empowerment"], ["images/women-3.jpg", "Women Empowerment"], ["images/advocacy-1.jpg", "Advocacy"], ["images/advocacy-2.jpg", "Advocacy"], ["images/advocacy-3.jpg", "Advocacy"], ["images/advocacy-4.jpg", "Advocacy"], ["images/whatwedo-collage.jpg", "What We Do"], ["images/whatwedo-hero.jpg", "What We Do"], ["images/about-hero.jpg", "About Us"], ["images/about-team.jpg", "About Us"], ["images/about-work-1.jpg", "About Us"], ["images/about-work-2.jpg", "About Us"]];
+    var galleryData = [["images/commendation-1.jpg", "Community Outreach"], ["images/commendation-2.jpg", "Community Outreach"], ["images/commendation-3.jpg", "Community Outreach"], ["images/commendation-4.jpg", "Community Outreach"], ["images/commendation-5.jpg", "Community Outreach"], ["images/commendation-6.jpg", "Community Outreach"], ["images/story1-city-people.jpg", "Community Outreach"], ["images/story2-party-flyer.jpg", "Community Outreach"], ["images/story4-1.jpg", "Community Outreach"], ["images/story4-2.jpg", "Community Outreach"], ["images/story4-3.jpg", "Community Outreach"], ["images/story4-4.jpg", "Community Outreach"], ["images/story5-1.jpg", "Community Outreach"], ["images/story5-2.jpg", "Community Outreach"], ["images/story5-3.jpg", "Community Outreach"], ["images/story5-4.jpg", "Community Outreach"], ["images/story5-5.jpg", "Community Outreach"], ["images/story6-1.jpg", "Community Outreach"], ["images/story6-2.jpg", "Community Outreach"], ["images/story6-3.jpg", "Community Outreach"], ["images/story6-4.jpg", "Community Outreach"], ["images/health-1.jpg", "Maternal Health"], ["images/health-10.jpg", "Maternal Health"], ["images/health-2.jpg", "Maternal Health"], ["images/health-3.jpg", "Maternal Health"], ["images/health-4.jpg", "Maternal Health"], ["images/health-5.jpg", "Maternal Health"], ["images/health-6.jpg", "Maternal Health"], ["images/health-7.jpg", "Maternal Health"], ["images/health-8.jpg", "Maternal Health"], ["images/health-9.jpg", "Maternal Health"], ["images/child-1.jpg", "Child Education"], ["images/child-2.jpg", "Child Education"], ["images/child-3.jpg", "Child Education"], ["images/child-4.jpg", "Child Education"], ["images/child-5.jpg", "Child Education"], ["images/child-6.jpg", "Child Education"], ["images/women-1.jpg", "Women Empowerment"], ["images/women-2.jpg", "Women Empowerment"], ["images/women-3.jpg", "Women Empowerment"], ["images/advocacy-1.jpg", "Advocacy"], ["images/advocacy-2.jpg", "Advocacy"], ["images/advocacy-3.jpg", "Advocacy"], ["images/advocacy-4.jpg", "Advocacy"], ["images/whatwedo-collage.jpg", "What We Do"], ["images/whatwedo-hero.jpg", "What We Do"], ["images/about-hero.jpg", "About Us"], ["images/about-team.jpg", "About Us"], ["images/about-work-1.jpg", "About Us"], ["images/about-work-2.jpg", "About Us"]];
     var currentLightboxIndex = 0;
 
     function openLightbox(index){
