@@ -175,6 +175,35 @@
     @media (prefers-reduced-motion: reduce) {
         .blob, .pulse-btn:hover { animation: none !important; }
     }
+
+    /* ---- Floating WhatsApp button ---- */
+    @keyframes wa-pop-in {
+        0% { transform: scale(0) translateY(20px); opacity: 0; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes wa-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); }
+        70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+        100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+    #whatsapp-float {
+        animation: wa-pop-in 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.6s both, wa-pulse 2.4s ease-out 1.2s infinite;
+    }
+    #whatsapp-float:hover { transform: scale(1.08); }
+    #whatsapp-tooltip {
+        opacity: 0;
+        transform: translateX(8px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #whatsapp-float:hover + #whatsapp-tooltip,
+    #whatsapp-wrap:hover #whatsapp-tooltip {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        #whatsapp-float { animation: none !important; }
+    }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
@@ -645,7 +674,7 @@
                 </div>
                 <p class="text-on-surface-variant leading-relaxed">Every year, countless women and children face preventable health risks and hardships due to a lack of access to resources. At Blue Baby Support Initiative, we are here to stand in the gap, provide relief, and offer hope for a brighter future.</p>
                 <div class="flex gap-4 mt-2">
-                    <a class="text-on-surface-variant hover:text-primary transition-colors" href="mailto:info@bbsinitiative.org" aria-label="Email Blue Baby Support Initiative">
+                    <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://mail.google.com/mail/?view=cm&fs=1&to=info@bbsinitiative.org" target="_blank" rel="noopener" aria-label="Email Blue Baby Support Initiative via Gmail">
                         <span class="material-symbols-outlined" style="font-size:22px;">mail</span>
                     </a>
                     <a class="text-on-surface-variant hover:text-primary transition-colors" href="tel:+2348033342104" aria-label="Call Blue Baby Support Initiative">
@@ -670,6 +699,16 @@
 
     </div>
 </footer>
+
+<!-- Floating WhatsApp Button -->
+<div id="whatsapp-wrap" class="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[90] flex items-center gap-3">
+    <span id="whatsapp-tooltip" class="hidden sm:inline-block bg-on-background text-white text-sm font-semibold px-3.5 py-2 rounded-lg shadow-lg whitespace-nowrap">
+        Chat with us on WhatsApp
+    </span>
+    <a id="whatsapp-float" href="https://wa.me/2348033342104?text=Hello%20BBSI%2C%20I%27d%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" aria-label="Chat with Blue Baby Support Initiative on WhatsApp" class="flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-[#25D366] shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:scale-105 transition-transform duration-200">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.46 17.51 2 12.04 2zm5.86 14.03c-.25.7-1.45 1.34-2 1.42-.51.08-1.16.11-1.87-.12-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.08.93 2.23.08.15.13.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.08.13.08.75-.17 1.45z"/></svg>
+    </a>
+</div>
 
 <script>
 (function(){
