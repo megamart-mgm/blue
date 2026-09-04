@@ -422,7 +422,9 @@
                 <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Careers</a>
             </div>
         </div>
-        <p class="text-sm text-outline">© 2026 Blue Baby Support Initiative. Standing in the gap for maternal and child health.</p>
+        <p class="text-sm text-outline">© 2026 Blue Baby Support Initiative | Built by
+            <button type="button" id="dev-credit-btn" class="text-primary underline decoration-dotted underline-offset-2 hover:text-tertiary transition-colors">Mega Grace Computer Intel</button>
+        </p>
     </div>
 </footer>
 
@@ -580,5 +582,51 @@
         if (e.key === 'ArrowLeft') navLightbox(-1);
     });
 </script>
+
+<!-- Developer Credit Modal -->
+<div id="dev-credit-modal" class="hidden fixed inset-0 z-[110] items-center justify-center bg-black/60 px-5" onclick="if(event.target===this) closeDevCreditModal()">
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full p-7 text-center">
+        <button type="button" onclick="closeDevCreditModal()" aria-label="Close" class="absolute top-3 right-3 text-on-surface-variant hover:text-primary p-1.5 rounded-full hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+        </button>
+        <div class="h-14 w-14 rounded-full bg-primary-fixed flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-primary" style="font-size:28px;">code</span>
+        </div>
+        <h3 class="fs-subhead text-on-surface mb-2">Built by Mega Grace Computer Intel</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Need a website like this for your business or organization? Let's talk.</p>
+        <div class="flex flex-col gap-3">
+            <a href="https://nigeria-developer.vercel.app/" target="_blank" rel="noopener" class="inline-flex justify-center items-center gap-2 bg-primary text-on-primary fs-label px-6 py-3 rounded-lg hover:bg-tertiary transition-all">
+                <span class="material-symbols-outlined" style="font-size:18px;">language</span> View Portfolio
+            </a>
+            <a href="https://wa.me/2349032473005" target="_blank" rel="noopener" class="inline-flex justify-center items-center gap-2 border-2 border-primary text-primary fs-label px-6 py-3 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+                <span class="material-symbols-outlined" style="font-size:18px;">chat</span> WhatsApp Me
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    var devBtn = document.getElementById('dev-credit-btn');
+    var devModal = document.getElementById('dev-credit-modal');
+    if (devBtn && devModal) {
+        devBtn.addEventListener('click', function(){
+            devModal.classList.remove('hidden');
+            devModal.classList.add('flex');
+        });
+    }
+    document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && devModal && !devModal.classList.contains('hidden')) closeDevCreditModal();
+    });
+})();
+function closeDevCreditModal(){
+    var devModal = document.getElementById('dev-credit-modal');
+    if (devModal) {
+        devModal.classList.add('hidden');
+        devModal.classList.remove('flex');
+    }
+}
+</script>
+
 </body>
 </html>
