@@ -255,7 +255,7 @@
             <span class="material-symbols-outlined text-primary" style="font-size:28px;">lock</span>
         </div>
         <h3 class="fs-subhead text-on-surface mb-1">Admin access</h3>
-        <p class="text-sm text-on-surface-variant mb-5">Enter the posting password to share a new story.</p>
+        <p class="text-sm text-on-surface-variant mb-5">Enter your password to continue.</p>
         <form onsubmit="return checkPassword(event)">
             <input id="admin-password" type="password" required placeholder="Password" autocomplete="current-password"
                 class="w-full rounded-lg border border-outline-variant px-4 py-3 mb-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
@@ -325,6 +325,21 @@
     <div id="post-detail-content" class="max-w-3xl mx-auto px-5 md:px-8 py-8 md:py-12"></div>
 </div>
 
+<!-- ================= Manage stories (edit/delete) modal ================= -->
+<div id="manage-modal-backdrop" class="hidden fixed inset-0 z-[110] items-center justify-center px-4 py-8 overflow-y-auto" onclick="if(event.target===this) closeManageModal()">
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 my-auto max-h-[85vh] flex flex-col">
+        <button type="button" onclick="closeManageModal()" aria-label="Close" class="absolute top-3 right-3 text-on-surface-variant hover:text-primary p-1.5 rounded-full hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+        </button>
+        <div class="h-14 w-14 rounded-full bg-primary-fixed flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-primary" style="font-size:28px;">edit_note</span>
+        </div>
+        <h3 class="fs-subhead text-on-surface mb-1">Manage stories</h3>
+        <p class="text-sm text-on-surface-variant mb-4">Choose a story to edit or delete.</p>
+        <div id="manage-list" class="overflow-y-auto flex-1 -mx-2 px-2 space-y-1"></div>
+    </div>
+</div>
+
 <!-- ================= Supabase integration ================= -->
 <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -342,8 +357,6 @@
 
     let allPostsCache = [];
     let editingPostId = null;
-    let pendingAction = null;
-    let pendingPostId = null;
 
     // ---------- Load & render posts ----------
     async function loadPosts(){
@@ -437,20 +450,6 @@
             imgGrid.innerHTML = '<span class="material-symbols-outlined text-4xl text-outline">image</span>';
         }
 
-        const actions = document.createElement('div');
-        actions.className = 'absolute top-2 right-2 flex gap-2 z-10';
-        actions.innerHTML = `
-            <button type="button" class="card-action-btn h-9 w-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow hover:bg-white text-on-surface-variant hover:text-primary transition-colors" title="Edit story" aria-label="Edit story">
-                <span class="material-symbols-outlined" style="font-size:18px;">edit</span>
-            </button>
-            <button type="button" class="card-action-btn h-9 w-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow hover:bg-white text-on-surface-variant hover:text-error transition-colors" title="Delete story" aria-label="Delete story">
-                <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
-            </button>
-        `;
-        actions.children[0].addEventListener('click', (e) => { e.stopPropagation(); openPasswordModal('edit', post.id); });
-        actions.children[1].addEventListener('click', (e) => { e.stopPropagation(); openPasswordModal('delete', post.id); });
-        imgGrid.appendChild(actions);
-
         const body = document.createElement('div');
         body.className = 'p-5 flex-1 flex flex-col';
         const date = post.created_at ? new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
@@ -535,9 +534,10 @@
     };
 
     // ---------- Password gate ----------
-    window.openPasswordModal = function(action, postId){
-        pendingAction = action || 'post';
-        pendingPostId = postId || null;
+    // Single entry point (the footer upload button). The password typed
+    // decides what happens next: the posting password opens the "new
+    // story" form, the manage password opens the edit/delete list.
+    window.openPasswordModal = function(){
         document.getElementById('password-error').classList.add('hidden');
         document.getElementById('admin-password').value = '';
         const m = document.getElementById('password-modal-backdrop');
@@ -552,31 +552,69 @@
     window.checkPassword = function(e){
         e.preventDefault();
         const val = document.getElementById('admin-password').value;
-        const action = pendingAction;
-        const postId = pendingPostId;
 
-        if (action === 'post' && val === ADMIN_PASSWORD) {
+        if (val === ADMIN_PASSWORD) {
             closePasswordModal();
             openUploadModal();
-            return false;
-        }
-        if (action === 'edit' && val === MANAGE_PASSWORD) {
-            const post = allPostsCache.find(p => p.id === postId);
+        } else if (val === MANAGE_PASSWORD) {
             closePasswordModal();
-            if (post) openUploadModal(post);
-            return false;
+            openManageModal();
+        } else {
+            document.getElementById('password-error').classList.remove('hidden');
         }
-        if (action === 'delete' && val === MANAGE_PASSWORD) {
-            closePasswordModal();
-            deletePost(postId);
-            return false;
-        }
-        document.getElementById('password-error').classList.remove('hidden');
         return false;
     };
 
-    // ---------- Delete ----------
-    async function deletePost(id){
+    // ---------- Manage stories (edit/delete) ----------
+    window.openManageModal = function(){
+        renderManageList();
+        const m = document.getElementById('manage-modal-backdrop');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+    };
+    window.closeManageModal = function(){
+        const m = document.getElementById('manage-modal-backdrop');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+    };
+
+    function renderManageList(){
+        const listEl = document.getElementById('manage-list');
+        listEl.innerHTML = '';
+        if (allPostsCache.length === 0) {
+            listEl.innerHTML = '<p class="text-sm text-on-surface-variant py-6 text-center">No stories yet.</p>';
+            return;
+        }
+        allPostsCache.forEach(post => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-low';
+            const thumbUrl = Array.isArray(post.image_urls) && post.image_urls[0] ? post.image_urls[0] : '';
+            const date = post.created_at ? new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+            row.innerHTML = `
+                <div class="h-12 w-12 rounded-lg bg-surface-container-high overflow-hidden shrink-0 flex items-center justify-center">
+                    ${thumbUrl ? `<img src="${escapeAttr(thumbUrl)}" alt="" class="h-full w-full object-cover"/>` : `<span class="material-symbols-outlined text-outline">image</span>`}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="fs-label text-on-surface truncate">${escapeHtml(post.title || '')}</p>
+                    <p class="text-xs text-on-surface-variant">${date}</p>
+                </div>
+                <button type="button" class="manage-edit-btn h-9 w-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary-fixed transition-colors shrink-0" title="Edit" aria-label="Edit story">
+                    <span class="material-symbols-outlined" style="font-size:18px;">edit</span>
+                </button>
+                <button type="button" class="manage-delete-btn h-9 w-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error-container transition-colors shrink-0" title="Delete" aria-label="Delete story">
+                    <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
+                </button>
+            `;
+            row.querySelector('.manage-edit-btn').addEventListener('click', () => {
+                closeManageModal();
+                openUploadModal(post);
+            });
+            row.querySelector('.manage-delete-btn').addEventListener('click', () => deletePostFromManage(post.id));
+            listEl.appendChild(row);
+        });
+    }
+
+    async function deletePostFromManage(id){
         if (!confirm('Delete this story? This cannot be undone.')) return;
         const { error } = await supabase.from('posts').delete().eq('id', id);
         if (error) {
@@ -584,8 +622,8 @@
             alert('Could not delete this story: ' + error.message);
             return;
         }
-        closePostDetail();
         await loadPosts();
+        renderManageList();
     }
 
     // ---------- Upload / edit modal ----------
@@ -631,7 +669,7 @@
         m.classList.remove('flex');
     };
 
-    document.getElementById('upload-fab').addEventListener('click', () => openPasswordModal('post'));
+    document.getElementById('upload-fab').addEventListener('click', openPasswordModal);
 
     document.getElementById('post-images').addEventListener('change', function(){
         const count = this.files.length;
