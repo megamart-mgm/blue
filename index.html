@@ -153,6 +153,37 @@
   .field-underline { background: transparent; border: none; border-bottom: 2px solid #DCC9A3; padding: .65rem .1rem; color: #241C17; width: 100%; }
   .field-underline::placeholder { color: #B7A688; }
   .field-underline:focus { border-bottom-color: #DE6A4E; outline: none; }
+
+  /* ---- Scroll reveal animations ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .8s cubic-bezier(.2,.65,.3,1), transform .8s cubic-bezier(.2,.65,.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal.reveal-left { transform: translateX(-40px); }
+  .reveal.reveal-right { transform: translateX(40px); }
+  .reveal.reveal-scale { transform: translateY(24px) scale(.96); }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  .reveal-stagger.in-view > * {
+    animation: reveal-stagger-item .7s cubic-bezier(.2,.65,.3,1) both;
+  }
+  .reveal-stagger.in-view > *:nth-child(1) { animation-delay: .05s; }
+  .reveal-stagger.in-view > *:nth-child(2) { animation-delay: .15s; }
+  .reveal-stagger.in-view > *:nth-child(3) { animation-delay: .25s; }
+  .reveal-stagger.in-view > *:nth-child(4) { animation-delay: .35s; }
+  @keyframes reveal-stagger-item {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal.in-view, .reveal-stagger.in-view > * {
+      opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important;
+    }
+  }
 </style>
 </head>
 <body class="bg-paper text-ink font-body antialiased selection:bg-marigold selection:text-ink">
@@ -254,7 +285,7 @@
 
 <!-- ===================== Floating glass stat strip ===================== -->
 <section class="px-4 sm:px-6 md:px-10 max-w-wrap mx-auto relative z-10">
-  <div class="glass-light rounded-lg shadow-xl -mt-8 md:-mt-12 px-6 sm:px-10 py-8 grid grid-cols-2 md:grid-cols-4 gap-y-7 gap-x-4 text-center">
+  <div class="reveal reveal-scale glass-light rounded-lg shadow-xl -mt-8 md:-mt-12 px-6 sm:px-10 py-8 grid grid-cols-2 md:grid-cols-4 gap-y-7 gap-x-4 text-center">
     <div>
       <div class="fs-stat font-display text-ember mb-1 counter" data-target="200" data-suffix="+">0</div>
       <div class="text-xs sm:text-sm text-ink-muted font-medium">Volunteers engaged</div>
@@ -277,13 +308,13 @@
 <!-- ===================== About Us ===================== -->
 <section class="py-14 md:py-24 px-4 sm:px-6 md:px-10 max-w-wrap mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-    <div class="relative max-w-sm mx-auto md:mx-0 md:order-1 order-2">
+    <div class="reveal reveal-left relative max-w-sm mx-auto md:mx-0 md:order-1 order-2">
       <div class="diagonal-accent absolute inset-0 translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5 bg-marigold"></div>
       <div class="diagonal-photo relative">
         <img src="about.jpg" alt="BBSI team distributing Friends of Hope relief packages to a woman in the community" class="w-full h-80 sm:h-96 md:h-[440px] object-cover"/>
       </div>
     </div>
-    <div class="md:order-2 order-1">
+    <div class="reveal reveal-right md:order-2 order-1">
       <span class="inline-block text-sm font-semibold text-ember mb-3">Welcome to BBSI</span>
       <h2 class="fs-h2 font-display text-midnight mb-6">About Us</h2>
       <p class="text-lg text-ink leading-relaxed mb-4">We are dedicated to bridging the gap for underprivileged individuals, especially women and children.</p>
@@ -300,11 +331,11 @@
 <!-- ===================== Four pillars — "cause" cards ===================== -->
 <section class="bg-paper-dim py-14 md:py-24 px-4 sm:px-6 md:px-10">
   <div class="max-w-wrap mx-auto">
-    <div class="text-center max-w-lg mx-auto mb-10 md:mb-14">
+    <div class="reveal text-center max-w-lg mx-auto mb-10 md:mb-14">
       <span class="inline-block text-sm font-semibold text-ember mb-3">What we focus on</span>
       <h2 class="fs-h2 font-display text-midnight">Four ways we show up</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+    <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
       <a href="health.html" class="glow-card group bg-paper rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
         <div class="h-44 overflow-hidden"><img src="14.jpeg" alt="Maternal Health Support" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/></div>
         <div class="p-5">
@@ -344,7 +375,7 @@
 <!-- ===================== Our Advocacy ===================== -->
 <section class="py-14 md:py-24 px-4 sm:px-6 md:px-10 max-w-wrap mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-    <div>
+    <div class="reveal reveal-left">
       <h2 class="fs-h2 font-display text-midnight mb-6">What we're pushing for</h2>
       <p class="text-ink-muted leading-relaxed mb-8">We lend our voice and resources toward sustainable change on the maternal issues that affect women and children in Nigeria most.</p>
       <ul class="space-y-5 mb-9">
@@ -353,7 +384,7 @@
       </ul>
       <a class="btn-sheen inline-flex justify-center items-center bg-midnight text-paper text-sm font-semibold px-7 py-3.5 rounded-md hover:bg-ember transition-colors" href="about.html">Read more</a>
     </div>
-    <div class="rounded-lg overflow-hidden shadow-lg order-first md:order-last">
+    <div class="reveal reveal-right rounded-lg overflow-hidden shadow-lg order-first md:order-last">
       <img src="our.jpg" alt="Friends of Hope community advocacy event banner and volunteers" class="w-full h-72 md:h-[420px] object-cover"/>
     </div>
   </div>
@@ -362,7 +393,7 @@
 <!-- ===================== Founder ===================== -->
 <section class="bg-paper-dim py-14 md:py-24 px-4 sm:px-6 md:px-10">
   <div class="max-w-wrap mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-    <div class="relative max-w-sm mx-auto md:mx-0">
+    <div class="reveal reveal-left relative max-w-sm mx-auto md:mx-0">
       <div class="diagonal-accent-r absolute inset-0 -translate-x-3 translate-y-3 md:-translate-x-5 md:translate-y-5 bg-ember"></div>
       <div class="diagonal-photo-r relative">
         <img src="images/founder.jpg" alt="Aisha Iyabo Ogieriakhi, Founder of Blue Baby Support Initiative" class="w-full h-80 sm:h-96 md:h-[440px] object-cover"/>
@@ -370,7 +401,7 @@
       <p class="text-center mt-6 font-display text-midnight text-lg font-semibold">Aisha Iyabo Ogieriakhi</p>
       <p class="text-center text-sm text-ink-muted">Founder, BBSI</p>
     </div>
-    <div>
+    <div class="reveal reveal-right">
       <span class="inline-block text-sm font-semibold text-ember mb-3">From our founder</span>
       <h2 class="fs-h2 font-display text-midnight mb-7">Pain, purpose, and philanthropy</h2>
       <div class="space-y-6 text-ink leading-relaxed">
@@ -390,12 +421,12 @@
 
 <!-- ===================== Media tour ===================== -->
 <section class="py-14 md:py-24 px-4 sm:px-6 md:px-10 max-w-wrap mx-auto">
-  <div class="text-center max-w-lg mx-auto mb-10 md:mb-14">
+  <div class="reveal text-center max-w-lg mx-auto mb-10 md:mb-14">
     <span class="inline-block text-sm font-semibold text-ember mb-3">On air</span>
     <h2 class="fs-h2 font-display text-midnight mb-4">BBSI media tour</h2>
     <p class="text-ink-muted leading-relaxed">Our founder, Aisha Dania Ogieriakhi (Mama Blue), shared insights into our ongoing projects and the action plan for 2025.</p>
   </div>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+  <div class="reveal-stagger grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
     <div class="rounded-lg overflow-hidden aspect-square shadow-md"><img src="m1.jpg" alt="BBSI team on a radio station media visit" class="w-full h-full object-cover"/></div>
     <div class="rounded-lg overflow-hidden aspect-square shadow-md"><img src="m2.jpg" alt="Founder Aisha Ogieriakhi with the BBSI team at a radio interview" class="w-full h-full object-cover"/></div>
     <div class="rounded-lg overflow-hidden aspect-square shadow-md"><img src="m3.jpg" alt="BBSI team waiting for a radio interview" class="w-full h-full object-cover"/></div>
@@ -406,12 +437,12 @@
 <!-- ===================== Success stories ===================== -->
 <section id="stories" class="bg-paper-dim py-14 md:py-24 px-4 sm:px-6 md:px-10">
   <div class="max-w-wrap mx-auto">
-    <div class="text-center max-w-lg mx-auto mb-10 md:mb-14">
+    <div class="reveal text-center max-w-lg mx-auto mb-10 md:mb-14">
       <span class="inline-block text-sm font-semibold text-ember mb-3">Our success stories</span>
       <h2 class="fs-h2 font-display text-midnight mb-4">Moments that define our journey</h2>
       <p class="text-ink-muted leading-relaxed">From media features to festive outreaches — stories of hope we've built together across Nigeria.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+    <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
       <a href="story1.html" class="glow-card group bg-paper rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
         <div class="h-52 bg-paper-dim flex items-center justify-center p-2 overflow-hidden"><img src="images/story1-city-people.jpg" alt="BBSI Founder featured in City People Magazine" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"/></div>
         <div class="p-5">
@@ -445,7 +476,7 @@
 
 <!-- ===================== CTA ===================== -->
 <section class="relative py-14 md:py-20 text-center px-5 bg-midnight overflow-hidden">
-  <div class="relative max-w-2xl mx-auto">
+  <div class="reveal reveal-scale relative max-w-2xl mx-auto">
     <h2 class="fs-h2 font-display text-paper mb-7">We can't help everyone,<br/>but everyone can help someone.</h2>
     <div class="flex flex-col sm:flex-row justify-center gap-3 mb-9">
       <a class="btn-sheen inline-flex justify-center items-center bg-marigold text-ink text-sm font-semibold px-8 py-4 rounded-md hover:bg-ember hover:text-paper transition-colors" href="donate.html">Donate now</a>
@@ -466,7 +497,7 @@
 
 <!-- ===================== Contact ===================== -->
 <section id="contact" class="py-14 md:py-24 px-4 sm:px-6 md:px-10">
-  <div class="max-w-2xl mx-auto">
+  <div class="reveal max-w-2xl mx-auto">
     <h2 class="fs-h2 font-display text-midnight mb-3">Get in touch</h2>
     <p class="text-ink-muted mb-9">Questions, partnership ideas, or want to volunteer? Send us a message.</p>
     <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6" onsubmit="return false;">
@@ -495,7 +526,7 @@
 
 <!-- ===================== Newsletter ===================== -->
 <section class="bg-paper-dim px-4 sm:px-6 md:px-10 py-14 md:py-20">
-  <div class="max-w-2xl mx-auto text-center">
+  <div class="reveal max-w-2xl mx-auto text-center">
     <h2 class="fs-h2 font-display text-midnight mb-3">Stay in the loop</h2>
     <p class="text-ink-muted mb-8 leading-relaxed">Join our newsletter for stories of impact, upcoming outreaches, and ways you can stand in the gap with us.</p>
     <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="return handleNewsletterSubmit(event)">
@@ -611,6 +642,22 @@
     counters.forEach(function(el){ counterIo.observe(el); });
   } else {
     counters.forEach(function(el){ animateCounter(el); });
+  }
+
+  /* ---- Scroll reveal ---- */
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var revealIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function(el){ revealIo.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
   }
 
   var wwdTrigger = document.getElementById('wwd-trigger');
