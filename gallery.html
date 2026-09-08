@@ -85,6 +85,8 @@
   .gallery-tile img { transition: transform .5s ease; }
   .gallery-tile:hover img { transform: scale(1.06); }
   .gallery-caption { background: linear-gradient(to top, rgba(14,23,41,0.85), rgba(14,23,41,0)); }
+  .hidden-lb { display: none !important; }
+  #lightbox { display: flex; }
 
   .reveal {
     opacity: 0; transform: translateY(32px);
@@ -490,10 +492,10 @@
         </div>
         <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 fs-body-lg">
             <a href="tel:+2348033342104" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <span class="material-symbols-outlined" style="font-size:20px;">call</span> +234-803-3342-104
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.12 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8.02 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/></svg> +234-803-3342-104
             </a>
             <a href="mailto:info@bbsinitiative.org" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <span class="material-symbols-outlined" style="font-size:20px;">mail</span> info@bbsinitiative.org
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> info@bbsinitiative.org
             </a>
         </div>
     </div>
@@ -502,17 +504,17 @@
 
 <div id="lightbox" class="hidden-lb fixed inset-0 z-[100] bg-black/90 flex items-center justify-center px-4">
     <button type="button" onclick="closeLightbox()" aria-label="Close" class="absolute top-5 right-5 text-white p-2 rounded-full hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined" style="font-size:32px;">close</span>
+        <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
     <button type="button" onclick="navLightbox(-1)" aria-label="Previous" class="absolute left-2 sm:left-6 text-white p-2 rounded-full hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined" style="font-size:36px;">chevron_left</span>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
     </button>
     <div class="max-w-4xl w-full flex flex-col items-center">
         <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-auto rounded-lg shadow-2xl object-contain"/>
         <p id="lightbox-caption" class="text-white/90 fs-label mt-4 text-center"></p>
     </div>
     <button type="button" onclick="navLightbox(1)" aria-label="Next" class="absolute right-2 sm:right-6 text-white p-2 rounded-full hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined" style="font-size:36px;">chevron_right</span>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
 </div>
 
