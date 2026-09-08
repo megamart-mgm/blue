@@ -94,7 +94,7 @@ tailwind.config={theme:{extend:{colors:{midnight:'#16233F','midnight-deep':'#0E1
 <div id="post-detail-backdrop" class="hidden fixed inset-0 z-[115] bg-paper overflow-y-auto"><div class="sticky top-0 z-10 bg-paper/95 backdrop-blur-md border-b border-paper-dim"><div class="max-w-3xl mx-auto px-5 md:px-8 h-16 flex items-center"><button type="button" onclick="closePostDetail()" class="inline-flex items-center gap-2 text-midnight font-semibold"><span class="material-symbols-outlined">arrow_back</span>Back to stories</button></div></div><div id="post-detail-content" class="max-w-3xl mx-auto px-5 md:px-8 py-8 md:py-12"></div></div>
 <div class="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[90]"><button id="upload-fab" type="button" aria-label="Post a new story" title="Post a new story" class="flex items-center justify-center h-14 w-14 rounded-full bg-marigold text-ink shadow-[0_8px_24px_rgba(14,23,41,.28)] hover:scale-105 transition-transform"><span class="material-symbols-outlined text-2xl">add_a_photo</span></button></div>
 <script type="module">
-import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
 const SUPABASE_URL='https://wpvymacwvuqhimbydzux.supabase.co',SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwdnltYWN3dnVxaGltYnlkenV4IiwiaWF0IjoxNzg4ODQwNzgyLCJleHAiOjIxMDQ0MTY3ODJ9.RFPyzMF7cgW5o96Bax9OU1YBIEQPy5bE5tJIQiKbNUo',BUCKET='story-images',ADMIN_PASSWORD='bbsinitiative2026',MANAGE_PASSWORD='bbsinitiative2025',MAX_IMAGES=10;
 const supabase=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);let allPostsCache=[],editingPostId=null;
 async function loadPosts(){const l=document.getElementById('posts-loading'),e=document.getElementById('posts-empty'),er=document.getElementById('posts-error'),g=document.getElementById('posts-grid');l.classList.remove('hidden');e.classList.add('hidden');er.classList.add('hidden');g.innerHTML='';const{data,error}=await supabase.from('posts').select('*').order('created_at',{ascending:false});l.classList.add('hidden');if(error){console.error(error);er.classList.remove('hidden');return}if(!data?.length){allPostsCache=[];e.classList.remove('hidden');return}allPostsCache=data;data.forEach(p=>g.appendChild(renderPostCard(p)))}
@@ -124,6 +124,6 @@ const rs=document.querySelectorAll('.reveal');if('IntersectionObserver'in window
 document.getElementById('upload-fab')?.addEventListener('click',()=>window.openPasswordModal?.());
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();const lb=document.getElementById('lightbox');if(lb&&!lb.classList.contains('hidden-lb'))closeLightbox();const pd=document.getElementById('post-detail-backdrop');if(pd&&!pd.classList.contains('hidden'))closePostDetail();closeDropdown()}});
 document.getElementById('year').textContent=new Date().getFullYear();
-loadPosts();
+loadPosts().catch(err=>{console.error('BBSI Story Blog load error:',err);const l=document.getElementById('posts-loading'),e=document.getElementById('posts-error');if(l)l.classList.add('hidden');if(e){e.classList.remove('hidden');const msg=e.querySelector('p');if(msg)msg.textContent='Could not load stories. Please refresh the page.'}});
 </script>
 </body></html>
