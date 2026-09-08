@@ -274,8 +274,8 @@
         <div class="h-14 w-14 rounded-full bg-primary-fixed flex items-center justify-center mb-4">
             <span class="material-symbols-outlined text-primary" style="font-size:28px;">post_add</span>
         </div>
-        <h3 class="fs-subhead text-on-surface mb-1">Post a new story</h3>
-        <p class="text-sm text-on-surface-variant mb-5">Add a title, the story, up to 10 photos, and (optionally) links to the Facebook or Instagram post.</p>
+        <h3 id="upload-modal-heading" class="fs-subhead text-on-surface mb-1">Post a new story</h3>
+        <p id="upload-modal-desc" class="text-sm text-on-surface-variant mb-5">Add a title, the story, up to 10 photos, and (optionally) links to the Facebook or Instagram post.</p>
 
         <form id="upload-form" onsubmit="return submitPost(event)">
             <label class="fs-label text-on-surface-variant block mb-1.5">Title</label>
@@ -284,7 +284,7 @@
             <label class="fs-label text-on-surface-variant block mb-1.5">Story</label>
             <textarea id="post-content" rows="4" required placeholder="Tell the story…" class="w-full rounded-lg border border-outline-variant px-4 py-3 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
 
-            <label class="fs-label text-on-surface-variant block mb-1.5">Photos (up to 10)</label>
+            <label id="post-images-label" class="fs-label text-on-surface-variant block mb-1.5">Photos (up to 10)</label>
             <input id="post-images" type="file" accept="image/*" multiple required class="w-full text-sm mb-1.5 file:mr-3 file:rounded-lg file:border-0 file:bg-primary-fixed file:text-primary file:px-4 file:py-2 file:fs-label"/>
             <p id="images-count" class="text-xs text-on-surface-variant mb-4">0 of 10 photos selected</p>
 
@@ -312,6 +312,19 @@
     <img id="lightbox-img" src="" alt="Story photo"/>
 </div>
 
+<!-- ================= Post detail (full story page) ================= -->
+<div id="post-detail-backdrop" class="hidden fixed inset-0 z-[115] bg-surface overflow-y-auto">
+    <div class="sticky top-0 z-10 bg-surface/95 backdrop-blur-md border-b border-outline-variant">
+        <div class="max-w-3xl mx-auto px-5 md:px-8 h-16 flex items-center">
+            <button type="button" onclick="closePostDetail()" aria-label="Back to stories" class="inline-flex items-center gap-2 text-primary font-semibold">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back to stories
+            </button>
+        </div>
+    </div>
+    <div id="post-detail-content" class="max-w-3xl mx-auto px-5 md:px-8 py-8 md:py-12"></div>
+</div>
+
 <!-- ================= Supabase integration ================= -->
 <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -321,10 +334,16 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwdnltYWN3dnVxaGltYnlkenV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDA3ODIsImV4cCI6MjEwNDQxNjc4Mn0.RFPyzMF7cgW5o96Bax9OU1YBIEQPy5bE5tJIQiKbNUo';
     const BUCKET = 'story-images';
     const ADMIN_PASSWORD = 'bbsinitiative2026';
+    const MANAGE_PASSWORD = 'bbsinitiative2025';
     const MAX_IMAGES = 10;
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     window.__bbsiSupabase = supabase;
+
+    let allPostsCache = [];
+    let editingPostId = null;
+    let pendingAction = null;
+    let pendingPostId = null;
 
     // ---------- Load & render posts ----------
     async function loadPosts(){
@@ -351,10 +370,12 @@
             return;
         }
         if (!data || data.length === 0) {
+            allPostsCache = [];
             emptyEl.classList.remove('hidden');
             return;
         }
 
+        allPostsCache = data;
         data.forEach(post => gridEl.appendChild(renderPostCard(post)));
     }
 
@@ -365,19 +386,39 @@
         return 'gmany';
     }
 
+    function socialLinksHtml(post){
+        const fb = post.facebook_url;
+        const ig = post.instagram_url;
+        if (!fb && !ig) return '';
+        let html = '<div class="post-social-links">';
+        if (fb) {
+            html += `<a href="${escapeAttr(fb)}" target="_blank" rel="noopener" aria-label="View on Facebook" title="View on Facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+            </a>`;
+        }
+        if (ig) {
+            html += `<a href="${escapeAttr(ig)}" target="_blank" rel="noopener" aria-label="View on Instagram" title="View on Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77A4.9 4.9 0 0 1 5.46.52C6.1.27 6.83.1 7.89.05 8.94.01 9.28 0 12 0zm0 5.35A6.65 6.65 0 1 0 12 18.65 6.65 6.65 0 0 0 12 5.35zm0 10.97A4.32 4.32 0 1 1 12 7.68a4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
+            </a>`;
+        }
+        html += '</div>';
+        return html;
+    }
+
     function renderPostCard(post){
         const card = document.createElement('div');
-        card.className = 'story-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col';
+        card.className = 'story-card cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] flex flex-col';
+        card.addEventListener('click', () => openPostDetail(post.id));
 
         const images = Array.isArray(post.image_urls) ? post.image_urls.slice(0, MAX_IMAGES) : [];
         const shown = images.slice(0, 6);
         const extra = images.length - shown.length;
 
         const imgGrid = document.createElement('div');
-        imgGrid.className = 'post-img-grid h-56 sm:h-60 w-full overflow-hidden bg-surface-container-high ' + gridClassFor(shown.length);
+        imgGrid.className = 'post-img-grid relative h-56 sm:h-60 w-full overflow-hidden bg-surface-container-high ' + gridClassFor(shown.length);
         shown.forEach((url, i) => {
             const wrap = document.createElement('div');
-            wrap.className = 'relative cursor-pointer';
+            wrap.className = 'relative';
             const img = document.createElement('img');
             img.src = url;
             img.alt = post.title || 'Story photo';
@@ -389,7 +430,6 @@
                 overlay.textContent = '+' + extra;
                 wrap.appendChild(overlay);
             }
-            wrap.addEventListener('click', () => openLightbox(url));
             imgGrid.appendChild(wrap);
         });
         if (shown.length === 0) {
@@ -397,38 +437,61 @@
             imgGrid.innerHTML = '<span class="material-symbols-outlined text-4xl text-outline">image</span>';
         }
 
+        const actions = document.createElement('div');
+        actions.className = 'absolute top-2 right-2 flex gap-2 z-10';
+        actions.innerHTML = `
+            <button type="button" class="card-action-btn h-9 w-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow hover:bg-white text-on-surface-variant hover:text-primary transition-colors" title="Edit story" aria-label="Edit story">
+                <span class="material-symbols-outlined" style="font-size:18px;">edit</span>
+            </button>
+            <button type="button" class="card-action-btn h-9 w-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow hover:bg-white text-on-surface-variant hover:text-error transition-colors" title="Delete story" aria-label="Delete story">
+                <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
+            </button>
+        `;
+        actions.children[0].addEventListener('click', (e) => { e.stopPropagation(); openPasswordModal('edit', post.id); });
+        actions.children[1].addEventListener('click', (e) => { e.stopPropagation(); openPasswordModal('delete', post.id); });
+        imgGrid.appendChild(actions);
+
         const body = document.createElement('div');
         body.className = 'p-5 flex-1 flex flex-col';
         const date = post.created_at ? new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
 
-        let socialHtml = '';
-        const fb = post.facebook_url;
-        const ig = post.instagram_url;
-        if (fb || ig) {
-            socialHtml = '<div class="post-social-links">';
-            if (fb) {
-                socialHtml += `<a href="${escapeAttr(fb)}" target="_blank" rel="noopener" aria-label="View on Facebook" title="View on Facebook">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
-                </a>`;
-            }
-            if (ig) {
-                socialHtml += `<a href="${escapeAttr(ig)}" target="_blank" rel="noopener" aria-label="View on Instagram" title="View on Instagram">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.16.55.55.9 1.11 1.16 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.16 1.77 4.9 4.9 0 0 1-1.77 1.16c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.16-1.77A4.9 4.9 0 0 1 5.46.52C6.1.27 6.83.1 7.89.05 8.94.01 9.28 0 12 0zm0 5.35A6.65 6.65 0 1 0 12 18.65 6.65 6.65 0 0 0 12 5.35zm0 10.97A4.32 4.32 0 1 1 12 7.68a4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
-                </a>`;
-            }
-            socialHtml += '</div>';
-        }
-
         body.innerHTML = `
             <span class="fs-label text-secondary mb-2">${date}</span>
             <h3 class="fs-subhead text-on-surface mb-2">${escapeHtml(post.title || '')}</h3>
-            <p class="text-sm text-on-surface-variant leading-relaxed whitespace-pre-line">${escapeHtml(post.content || '')}</p>
-            ${socialHtml}
+            <p class="text-sm text-on-surface-variant leading-relaxed whitespace-pre-line line-clamp-4">${escapeHtml(post.content || '')}</p>
+            ${socialLinksHtml(post)}
         `;
 
         card.appendChild(imgGrid);
         card.appendChild(body);
         return card;
+    }
+
+    function renderPostDetail(post){
+        const container = document.getElementById('post-detail-content');
+        const date = post.created_at ? new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+
+        container.innerHTML = `
+            <span class="fs-label text-secondary mb-2 block">${date}</span>
+            <h1 class="fs-headline font-display text-on-surface mb-5">${escapeHtml(post.title || '')}</h1>
+            <div id="post-detail-images" class="mb-6"></div>
+            <p class="fs-body-lg text-on-surface-variant leading-relaxed whitespace-pre-line mb-4">${escapeHtml(post.content || '')}</p>
+            <div id="post-detail-social"></div>
+        `;
+
+        const imagesEl = document.getElementById('post-detail-images');
+        const images = Array.isArray(post.image_urls) ? post.image_urls : [];
+        images.forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = post.title || 'Story photo';
+            img.loading = 'lazy';
+            img.className = 'w-full rounded-xl mb-4 cursor-zoom-in';
+            img.addEventListener('click', () => openLightbox(url));
+            imagesEl.appendChild(img);
+        });
+
+        document.getElementById('post-detail-social').innerHTML = socialLinksHtml(post);
     }
 
     function escapeHtml(str){
@@ -455,8 +518,26 @@
         document.getElementById('lightbox-img').src = '';
     };
 
+    // ---------- Post detail (full story page) ----------
+    window.openPostDetail = function(id){
+        const post = allPostsCache.find(p => p.id === id);
+        if (!post) return;
+        renderPostDetail(post);
+        const m = document.getElementById('post-detail-backdrop');
+        m.classList.remove('hidden');
+        m.scrollTop = 0;
+        document.body.classList.add('menu-locked');
+    };
+    window.closePostDetail = function(){
+        const m = document.getElementById('post-detail-backdrop');
+        m.classList.add('hidden');
+        document.body.classList.remove('menu-locked');
+    };
+
     // ---------- Password gate ----------
-    window.openPasswordModal = function(){
+    window.openPasswordModal = function(action, postId){
+        pendingAction = action || 'post';
+        pendingPostId = postId || null;
         document.getElementById('password-error').classList.add('hidden');
         document.getElementById('admin-password').value = '';
         const m = document.getElementById('password-modal-backdrop');
@@ -471,31 +552,86 @@
     window.checkPassword = function(e){
         e.preventDefault();
         const val = document.getElementById('admin-password').value;
-        if (val === ADMIN_PASSWORD) {
+        const action = pendingAction;
+        const postId = pendingPostId;
+
+        if (action === 'post' && val === ADMIN_PASSWORD) {
             closePasswordModal();
             openUploadModal();
-        } else {
-            document.getElementById('password-error').classList.remove('hidden');
+            return false;
         }
+        if (action === 'edit' && val === MANAGE_PASSWORD) {
+            const post = allPostsCache.find(p => p.id === postId);
+            closePasswordModal();
+            if (post) openUploadModal(post);
+            return false;
+        }
+        if (action === 'delete' && val === MANAGE_PASSWORD) {
+            closePasswordModal();
+            deletePost(postId);
+            return false;
+        }
+        document.getElementById('password-error').classList.remove('hidden');
         return false;
     };
 
-    // ---------- Upload modal ----------
-    window.openUploadModal = function(){
+    // ---------- Delete ----------
+    async function deletePost(id){
+        if (!confirm('Delete this story? This cannot be undone.')) return;
+        const { error } = await supabase.from('posts').delete().eq('id', id);
+        if (error) {
+            console.error(error);
+            alert('Could not delete this story: ' + error.message);
+            return;
+        }
+        closePostDetail();
+        await loadPosts();
+    }
+
+    // ---------- Upload / edit modal ----------
+    window.openUploadModal = function(post){
         document.getElementById('upload-form').reset();
         document.getElementById('images-count').textContent = '0 of 10 photos selected';
         document.getElementById('upload-error').classList.add('hidden');
+
+        const imagesInput = document.getElementById('post-images');
+        const imagesLabel = document.getElementById('post-images-label');
+        const heading = document.getElementById('upload-modal-heading');
+        const desc = document.getElementById('upload-modal-desc');
+        const submitLabel = document.getElementById('upload-submit-label');
+
+        if (post) {
+            editingPostId = post.id;
+            document.getElementById('post-title').value = post.title || '';
+            document.getElementById('post-content').value = post.content || '';
+            document.getElementById('post-facebook').value = post.facebook_url || '';
+            document.getElementById('post-instagram').value = post.instagram_url || '';
+            imagesInput.removeAttribute('required');
+            imagesLabel.textContent = 'Replace photos (optional — leave blank to keep the current photos)';
+            heading.textContent = 'Edit story';
+            desc.textContent = 'Update the title, story, links, or photos for this post.';
+            submitLabel.textContent = 'Save changes';
+        } else {
+            editingPostId = null;
+            imagesInput.setAttribute('required', 'required');
+            imagesLabel.textContent = 'Photos (up to 10)';
+            heading.textContent = 'Post a new story';
+            desc.textContent = 'Add a title, the story, up to 10 photos, and (optionally) links to the Facebook or Instagram post.';
+            submitLabel.textContent = 'Publish story';
+        }
+
         const m = document.getElementById('upload-modal-backdrop');
         m.classList.remove('hidden');
         m.classList.add('flex');
     };
     window.closeUploadModal = function(){
+        editingPostId = null;
         const m = document.getElementById('upload-modal-backdrop');
         m.classList.add('hidden');
         m.classList.remove('flex');
     };
 
-    document.getElementById('upload-fab').addEventListener('click', openPasswordModal);
+    document.getElementById('upload-fab').addEventListener('click', () => openPasswordModal('post'));
 
     document.getElementById('post-images').addEventListener('change', function(){
         const count = this.files.length;
@@ -526,7 +662,7 @@
             errorEl.classList.remove('hidden');
             return false;
         }
-        if (files.length === 0) {
+        if (!editingPostId && files.length === 0) {
             errorEl.textContent = 'Please select at least 1 photo.';
             errorEl.classList.remove('hidden');
             return false;
@@ -540,45 +676,62 @@
         const submitBtn = document.getElementById('upload-submit-btn');
         const spinner = document.getElementById('upload-submit-spinner');
         const label = document.getElementById('upload-submit-label');
+        const isEditing = !!editingPostId;
         submitBtn.disabled = true;
         spinner.classList.remove('hidden');
-        label.textContent = 'Publishing…';
+        label.textContent = isEditing ? 'Saving…' : 'Publishing…';
 
         try {
-            const imageUrls = [];
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-                const path = `${Date.now()}-${i}-${safeName}`;
-                const { error: uploadError } = await supabase.storage.from(BUCKET).upload(path, file, {
-                    cacheControl: '3600',
-                    upsert: false
-                });
-                if (uploadError) throw uploadError;
-                const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(path);
-                imageUrls.push(urlData.publicUrl);
+            let imageUrls;
+            if (files.length > 0) {
+                imageUrls = [];
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+                    const path = `${Date.now()}-${i}-${safeName}`;
+                    const { error: uploadError } = await supabase.storage.from(BUCKET).upload(path, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+                    if (uploadError) throw uploadError;
+                    const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(path);
+                    imageUrls.push(urlData.publicUrl);
+                }
+            } else if (isEditing) {
+                const existing = allPostsCache.find(p => p.id === editingPostId);
+                imageUrls = existing && Array.isArray(existing.image_urls) ? existing.image_urls : [];
+            } else {
+                imageUrls = [];
             }
 
-            const { error: insertError } = await supabase.from('posts').insert({
+            const payload = {
                 title,
                 content,
                 image_urls: imageUrls,
                 facebook_url: facebookUrl || null,
                 instagram_url: instagramUrl || null
-            });
-            if (insertError) throw insertError;
+            };
 
+            if (isEditing) {
+                const { error: updateError } = await supabase.from('posts').update(payload).eq('id', editingPostId);
+                if (updateError) throw updateError;
+            } else {
+                const { error: insertError } = await supabase.from('posts').insert(payload);
+                if (insertError) throw insertError;
+            }
+
+            editingPostId = null;
             closeUploadModal();
             await loadPosts();
             window.scrollTo({ top: document.getElementById('posts-grid').offsetTop - 100, behavior: 'smooth' });
         } catch (err) {
             console.error(err);
-            errorEl.textContent = 'Something went wrong publishing your story: ' + (err.message || 'please try again.');
+            errorEl.textContent = 'Something went wrong saving your story: ' + (err.message || 'please try again.');
             errorEl.classList.remove('hidden');
         } finally {
             submitBtn.disabled = false;
             spinner.classList.add('hidden');
-            label.textContent = 'Publish story';
+            label.textContent = isEditing ? 'Save changes' : 'Publish story';
         }
         return false;
     };
@@ -601,7 +754,12 @@
     if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     if (backdrop) backdrop.addEventListener('click', closeMenu);
     document.querySelectorAll('[data-menu-link]').forEach(function(link){ link.addEventListener('click', closeMenu); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+    document.addEventListener('keydown', function(e){
+        if (e.key !== 'Escape') return;
+        closeMenu();
+        var detail = document.getElementById('post-detail-backdrop');
+        if (detail && !detail.classList.contains('hidden') && typeof closePostDetail === 'function') closePostDetail();
+    });
 
     var revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
