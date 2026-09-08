@@ -127,6 +127,10 @@
     .reveal-stagger > *:nth-child(3){transition-delay:0.25s}
     .reveal-stagger > *:nth-child(4){transition-delay:0.35s}
     .reveal-stagger > *:nth-child(5){transition-delay:0.45s}
+    .reveal-stagger > *:nth-child(6){transition-delay:0.55s}
+    .reveal-stagger > *:nth-child(7){transition-delay:0.65s}
+    .reveal-stagger > *:nth-child(8){transition-delay:0.75s}
+    .reveal-stagger > *:nth-child(9){transition-delay:0.85s}
     @media (prefers-reduced-motion: reduce) {
         .reveal, .reveal-stagger > *, #mobile-menu-panel { transition: none !important; }
         html { scroll-behavior: auto; }
@@ -157,10 +161,12 @@
     .photo-frame img { transition: transform 0.6s ease; }
     .photo-frame:hover img { transform: scale(1.08); }
 
-    .gallery-tile { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .gallery-tile { transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: zoom-in; }
     .gallery-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -10px rgba(0,90,156,0.28); }
     .gallery-tile img { transition: transform 0.5s ease; }
     .gallery-tile:hover img { transform: scale(1.08); }
+    .gallery-tile .zoom-icon { opacity: 0; transition: opacity 0.3s ease; }
+    .gallery-tile:hover .zoom-icon { opacity: 1; }
     .gallery-caption {
         background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
     }
@@ -181,8 +187,22 @@
     .blob { animation: float-blob 11s ease-in-out infinite; }
     .blob-delay { animation-delay: 2.5s; }
 
+    /* Lightbox */
+    #lightbox { background: rgba(10,16,26,0.92); opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    #lightbox.open { opacity: 1; pointer-events: auto; }
+    #lightbox-img { transform: scale(0.94); opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease; }
+    #lightbox.open #lightbox-img { transform: scale(1); opacity: 1; }
+
+    /* Feature card hover lift */
+    .lift-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .lift-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -14px rgba(0,90,156,0.28); }
+
+    /* Counter number pop */
+    @keyframes count-pop { 0%{ transform: scale(0.9); opacity:0; } 100%{ transform: scale(1); opacity:1; } }
+    .counter-pop { animation: count-pop 0.5s ease both; }
+
     @media (prefers-reduced-motion: reduce) {
-        .photo-frame, .photo-frame img, .gallery-tile, .gallery-tile img, .fade-up-1, .fade-up-2, .fade-up-3, .blob { animation: none !important; transition: none !important; }
+        .photo-frame, .photo-frame img, .gallery-tile, .gallery-tile img, .fade-up-1, .fade-up-2, .fade-up-3, .blob, .lift-card, #lightbox, #lightbox-img { animation: none !important; transition: none !important; }
     }
 </style>
 </head>
@@ -207,7 +227,7 @@
                 <div class="h-px bg-outline-variant my-1 mx-2"></div>
                 <a href="health.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Maternal Health Support</a>
                 <a href="child.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Child Education</a>
-                <a href="women.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Rural Women Empowerment</a>
+                <a href="women.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Rural Empowerment</a>
                 <a href="advocacy.html" class="block px-5 py-2.5 text-sm text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">Advocacy &amp; Awareness</a>
             </div>
         </div>
@@ -244,7 +264,7 @@
                 <a data-menu-link class="py-2.5 pl-2 text-primary font-semibold" href="what-we-do.html">Overview</a>
                 <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="health.html">Maternal Health Support</a>
                 <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="child.html">Child Education</a>
-                <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="women.html">Rural Women Empowerment</a>
+                <a data-menu-link class="py-2.5 pl-2 text-on-surface-variant" href="women.html">Rural Empowerment</a>
                 <a data-menu-link class="py-2.5 pl-2 pb-3 text-on-surface-variant" href="advocacy.html">Advocacy &amp; Awareness</a>
             </div>
         </div>
@@ -276,57 +296,135 @@
                 <p class="fs-body-lg text-on-surface-variant max-w-xl">We ensure access to education for disadvantaged children by sponsoring school fees, distributing school supplies, and organizing mentorship programs to inspire and guide them.</p>
             </div>
             <div class="photo-frame fade-up-3 rounded-2xl overflow-hidden shadow-lg mx-auto w-full max-w-sm lg:max-w-none">
-                <img src="images/child-1.jpg" alt="BBSI volunteers with schoolchildren, including a volunteer in a wheelchair, at a school outreach" class="w-full aspect-square object-cover"/>
+                <img src="images/child-hero-backpack-handover.jpg" alt="BBSI volunteers, including a volunteer using a wheelchair, celebrating with schoolchildren after a backpack handover" class="w-full aspect-square object-cover"/>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Gallery -->
 <section class="reveal py-14 md:py-20 px-5 md:px-margin-desktop max-w-container-max mx-auto">
     <div class="max-w-2xl mb-10 md:mb-14">
         <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">In the Field</span>
         <h2 class="fs-headline text-on-surface">Child Education in Action</h2>
+        <p class="text-on-surface-variant mt-3">Moments from our Project Kit Up A Child For School outreach and school-fee sponsorships across communities.</p>
     </div>
     <div class="reveal-stagger grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        
-        <div class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square">
-            <img src="images/child-2.jpg" alt="Pupils gathered at our Project Kit Up A Child For School outreach" class="w-full h-full object-cover"/>
-            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <p class="text-white text-xs sm:text-sm leading-snug">Pupils gathered at our Project Kit Up A Child For School outreach</p>
-            </div>
-        </div>
 
-        <div class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square">
-            <img src="images/child-3.jpg" alt=""We can all make a difference... one child at a time" — pupils with their new backpacks" class="w-full h-full object-cover"/>
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-field-school-backpacks.jpg" data-caption="Backpack distribution day at a rural primary school">
+            <img src="images/child-field-school-backpacks.jpg" alt="Pupils and BBSI volunteers gathered outdoors with new backpacks" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
             <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <p class="text-white text-xs sm:text-sm leading-snug">"We can all make a difference... one child at a time" — pupils with their new backpacks</p>
+                <p class="text-white text-xs sm:text-sm leading-snug">Backpack distribution day at a rural primary school</p>
             </div>
-        </div>
+        </button>
 
-        <div class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square">
-            <img src="images/child-5.jpg" alt="Children proudly holding up their new learning materials" class="w-full h-full object-cover"/>
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-colorful-backpacks-raised.jpg" data-caption="Excited pupils raise their brand new backpacks">
+            <img src="images/child-colorful-backpacks-raised.jpg" alt="A large group of pupils in colourful uniforms raising their new backpacks in celebration" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
             <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <p class="text-white text-xs sm:text-sm leading-snug">Children proudly holding up their new learning materials</p>
+                <p class="text-white text-xs sm:text-sm leading-snug">Excited pupils raise their brand new backpacks</p>
             </div>
-        </div>
+        </button>
 
-        <div class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square">
-            <img src="images/child-6.jpg" alt="Pupils showing off their new school uniforms" class="w-full h-full object-cover"/>
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-sandals-distribution.jpg" data-caption="New sandals handed out at our footwear outreach">
+            <img src="images/child-sandals-distribution.jpg" alt="Pupils holding up new pairs of sandals during a footwear distribution" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
             <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <p class="text-white text-xs sm:text-sm leading-snug">Pupils showing off their new school uniforms</p>
+                <p class="text-white text-xs sm:text-sm leading-snug">New sandals handed out at our footwear outreach</p>
             </div>
-        </div>
+        </button>
 
-        <div class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square">
-            <img src="images/child-4.jpg" alt="A graduating pupil receiving his backpack and school supplies from a BBSI volunteer" class="w-full h-full object-cover"/>
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-classroom-backpacks-gifts.jpg" data-caption="A classroom celebration with backpacks and gift packs">
+            <img src="images/child-classroom-backpacks-gifts.jpg" alt="Pupils in a classroom, some in graduation gowns, holding up new backpacks and gift packs" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
             <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <p class="text-white text-xs sm:text-sm leading-snug">A graduating pupil receiving his backpack and school supplies from a BBSI volunteer</p>
+                <p class="text-white text-xs sm:text-sm leading-snug">A classroom celebration with backpacks and gift packs</p>
             </div>
-        </div>
+        </button>
+
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-backpacks-banner-portrait.jpg" data-caption="Two siblings proud of their new backpacks">
+            <img src="images/child-backpacks-banner-portrait.jpg" alt="A BBSI volunteer with two children holding their new backpacks in front of a BBSI banner" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
+            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <p class="text-white text-xs sm:text-sm leading-snug">Two siblings proud of their new backpacks</p>
+            </div>
+        </button>
+
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-new-uniforms-boys.jpg" data-caption="New uniforms, new confidence">
+            <img src="images/child-new-uniforms-boys.jpg" alt="Two boys holding up their new school uniforms" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
+            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <p class="text-white text-xs sm:text-sm leading-snug">New uniforms, new confidence</p>
+            </div>
+        </button>
+
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left hidden md:block" data-lightbox="images/child-uniform-outreach-group.jpg" data-caption="Project Kit Up A Child For School outreach">
+            <img src="images/child-uniform-outreach-group.jpg" alt="BBSI volunteers and pupils outside a classroom during the Project Kit Up A Child For School outreach" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
+            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <p class="text-white text-xs sm:text-sm leading-snug">Project Kit Up A Child For School outreach</p>
+            </div>
+        </button>
+
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left hidden md:block" data-lightbox="images/child-supplies-handover-bw.jpg" data-caption="Handing a child their new school supplies">
+            <img src="images/child-supplies-handover-bw.jpg" alt="A BBSI volunteer handing school supplies to a young pupil" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
+            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <p class="text-white text-xs sm:text-sm leading-snug">Handing a child their new school supplies</p>
+            </div>
+        </button>
+
+        <button type="button" class="gallery-tile relative rounded-xl overflow-hidden shadow-md aspect-square text-left hidden md:block" data-lightbox="images/child-childrensday-wheelchair-volunteer.jpg" data-caption="Children's Day celebration with our team">
+            <img src="images/child-childrensday-wheelchair-volunteer.jpg" alt="BBSI team, including a volunteer using a wheelchair, celebrating Children's Day with pupils and their new backpacks" class="w-full h-full object-cover"/>
+            <span class="zoom-icon material-symbols-outlined absolute top-3 right-3 text-white bg-black/40 rounded-full p-1.5" style="font-size:18px;">zoom_in</span>
+            <div class="gallery-caption absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                <p class="text-white text-xs sm:text-sm leading-snug">Children's Day celebration with our team</p>
+            </div>
+        </button>
 
     </div>
 </section>
 
+<!-- Scholarships & Relief -->
+<section class="reveal py-14 md:py-20 px-5 md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="max-w-2xl mb-10 md:mb-14">
+        <span class="fs-label text-primary bg-primary-fixed px-4 py-1.5 rounded-full inline-block mb-5">Beyond the Classroom</span>
+        <h2 class="fs-headline text-on-surface">Scholarships, Debates &amp; Relief Support</h2>
+        <p class="text-on-surface-variant mt-3">Education support goes further than supplies — from scholarship cheques to interschool debates and relief items for the whole family.</p>
+    </div>
+    <div class="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="lift-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)]">
+            <div class="aspect-[4/3] overflow-hidden">
+                <img src="images/child-scholarship-cheque.jpg" alt="BBSI presenting a scholarship cheque to two pupils" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-5">
+                <h3 class="fs-subhead text-on-surface mb-1.5">Scholarship Fund</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Direct scholarship awards presented to standout pupils to keep them in school.</p>
+            </div>
+        </div>
+        <div class="lift-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)]">
+            <div class="aspect-[4/3] overflow-hidden">
+                <img src="images/child-childrensday-debate-quiz.jpg" alt="Pupils at the interschool primary schools debate and quiz competition organised by BBSI" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-5">
+                <h3 class="fs-subhead text-on-surface mb-1.5">Debate &amp; Quiz Competitions</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Our Children's Day interschool debate and quiz competitions build confidence, critical thinking, and give a platform to talk about issues like bullying.</p>
+            </div>
+        </div>
+        <div class="lift-card rounded-xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)]">
+            <div class="aspect-[4/3] overflow-hidden">
+                <img src="images/child-relief-supplies-table.jpg" alt="Food and relief supplies laid out for a rural community during a BBSI outreach" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-5">
+                <h3 class="fs-subhead text-on-surface mb-1.5">Family Relief Packs</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Because a hungry child struggles to learn, we pair school outreaches with food and household relief items for families.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How We Support -->
 <section class="reveal bg-supportive-sky py-14 md:py-20 px-5 md:px-margin-desktop">
     <div class="max-w-container-max mx-auto">
         <div class="max-w-2xl mb-10 md:mb-14">
@@ -334,8 +432,8 @@
             <h2 class="fs-headline text-on-surface">How We Support Child Education</h2>
         </div>
         <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-3 gap-6">
-            
-        <div class="rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+
+        <div class="lift-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
             <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
                 <span class="material-symbols-outlined text-primary" style="font-size:24px;">payments</span>
             </div>
@@ -343,7 +441,7 @@
             <p class="text-sm text-on-surface-variant leading-relaxed">Covering tuition for disadvantaged children through our Scholarship Scheme so no child is turned away.</p>
         </div>
 
-        <div class="rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+        <div class="lift-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
             <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
                 <span class="material-symbols-outlined text-primary" style="font-size:24px;">backpack</span>
             </div>
@@ -351,7 +449,7 @@
             <p class="text-sm text-on-surface-variant leading-relaxed">Distributing uniforms, sandals, bags, and learning materials so every child is ready to learn.</p>
         </div>
 
-        <div class="rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
+        <div class="lift-card rounded-xl bg-surface-container-lowest shadow-[0_12px_32px_-8px_rgba(0,90,156,0.15)] p-6 flex flex-col">
             <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-4">
                 <span class="material-symbols-outlined text-primary" style="font-size:24px;">emoji_people</span>
             </div>
@@ -368,7 +466,7 @@
     <div class="relative max-w-2xl mx-auto">
         <h2 class="fs-display mb-6">We can't help everyone,<br/>but everyone can help someone</h2>
         <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8">
-            <a class="inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-8 py-4 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md" href="donate.html">
+            <a class="pulse-btn inline-flex justify-center items-center bg-secondary-container text-on-secondary-container fs-label px-8 py-4 rounded-lg hover:bg-secondary-fixed hover:text-secondary-fixed-dim transition-all shadow-md" href="donate.html">
                 Donate now
             </a>
             <a class="inline-flex justify-center items-center border-2 border-on-primary text-on-primary fs-label px-8 py-4 rounded-lg hover:bg-on-primary hover:text-primary transition-all" href="index.html#contact">
@@ -448,12 +546,23 @@
                 <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Terms of Service</a>
                 <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#contact">Contact Us</a>
                 <a class="fs-label text-on-surface-variant hover:text-secondary transition-colors" href="index.html#">Annual Reports</a>
-                
+
             </div>
         </div>
         <p class="text-sm text-outline">© 2026 Blue Baby Support Initiative. Standing in the gap for maternal and child health.</p>
     </div>
 </footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center px-4" role="dialog" aria-modal="true" aria-hidden="true">
+    <button type="button" id="lightbox-close" aria-label="Close image" class="absolute top-5 right-5 text-white p-2 rounded-full hover:bg-white/10 transition-colors">
+        <span class="material-symbols-outlined text-3xl block">close</span>
+    </button>
+    <figure class="max-w-3xl w-full">
+        <img id="lightbox-img" src="" alt="" class="w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"/>
+        <figcaption id="lightbox-caption" class="text-white/90 text-center text-sm mt-4"></figcaption>
+    </figure>
+</div>
 
 <script>
 (function(){
@@ -552,6 +661,35 @@
             }
         });
     }
+
+    // ---- Gallery Lightbox ----
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    var lightboxCaption = document.getElementById('lightbox-caption');
+    var lightboxClose = document.getElementById('lightbox-close');
+
+    function openLightbox(src, caption){
+        lightboxImg.src = src;
+        lightboxImg.alt = caption || '';
+        lightboxCaption.textContent = caption || '';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        body.classList.add('menu-locked');
+    }
+    function closeLightbox(){
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden','true');
+        body.classList.remove('menu-locked');
+        setTimeout(function(){ lightboxImg.src = ''; }, 350);
+    }
+    document.querySelectorAll('[data-lightbox]').forEach(function(tile){
+        tile.addEventListener('click', function(){
+            openLightbox(tile.getAttribute('data-lightbox'), tile.getAttribute('data-caption'));
+        });
+    });
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightbox) lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 })();
 </script>
 </body>
