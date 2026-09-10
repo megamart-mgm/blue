@@ -211,7 +211,7 @@
   </div>
 </section>
 
-<section class="reveal py-14 md:py-24 px-4 sm:px-6 md:px-10 max-w-wrap mx-auto">
+<section class="py-14 md:py-24 px-4 sm:px-6 md:px-10 max-w-wrap mx-auto">
     <div class="flex flex-wrap gap-2.5 mb-10 md:mb-12" id="filter-bar">
         <button type="button" class="filter-btn active fs-label px-5 py-2.5 rounded-full border border-paper-dim text-ink-muted" data-filter="all">All Photos</button>
 <button type="button" class="filter-btn fs-label px-5 py-2.5 rounded-full border border-paper-dim text-ink-muted" data-filter="story">Community Outreach</button>
@@ -696,7 +696,7 @@
       entries.forEach(function(entry){
         if (entry.isIntersecting) { entry.target.classList.add('in-view'); revealIo.unobserve(entry.target); }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.01, rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function(el){ revealIo.observe(el); });
   } else {
     revealEls.forEach(function(el){ el.classList.add('in-view'); });
