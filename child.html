@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>Child Education - Blue Baby Support Initiative</title>
 
 <!-- ===================== SEO ===================== -->
@@ -90,15 +90,16 @@
 
 <style>
   :root { color-scheme: light; }
-  * { -webkit-tap-highlight-color: transparent; }
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { overflow-x: hidden; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  img { max-width: 100%; height: auto; }
 
-  .fs-display { font-size: clamp(2rem, 6vw, 3.75rem); line-height: 1.08; letter-spacing: -0.01em; font-weight: 700; }
-  .fs-h2      { font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.12; font-weight: 700; }
-  .fs-h3      { font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.25; font-weight: 600; }
-  .fs-quote   { font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.4; font-weight: 400; font-style: italic; }
-  .fs-stat    { font-size: clamp(1.9rem, 3.4vw, 2.75rem); line-height: 1; font-weight: 700; }
+  .fs-display { font-size: clamp(1.9rem, 7vw, 3.75rem); line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+  .fs-h2      { font-size: clamp(1.6rem, 4.2vw, 2.5rem); line-height: 1.15; font-weight: 700; }
+  .fs-h3      { font-size: clamp(1.1rem, 2.4vw, 1.4rem); line-height: 1.28; font-weight: 600; }
+  .fs-quote   { font-size: clamp(1.15rem, 2.6vw, 1.75rem); line-height: 1.4; font-weight: 400; font-style: italic; }
+  .fs-stat    { font-size: clamp(1.7rem, 4vw, 2.75rem); line-height: 1; font-weight: 700; }
 
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #E8A33D; outline-offset: 3px; }
 
@@ -118,7 +119,7 @@
   .btn-sheen:hover::after { left: 130%; }
 
   /* ---- Mobile nav ---- */
-  #mobile-menu-panel { transform: translateX(100%); transition: transform .4s cubic-bezier(.4,0,.2,1); }
+  #mobile-menu-panel { transform: translateX(100%); transition: transform .4s cubic-bezier(.4,0,.2,1); max-width: 90vw; }
   #mobile-menu-panel.open { transform: translateX(0%); }
   #mobile-menu-backdrop { opacity: 0; pointer-events: none; transition: opacity .3s ease; }
   #mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
@@ -225,7 +226,7 @@
           <a href="what-we-do.html" class="block px-5 py-2.5 text-sm font-semibold text-midnight hover:bg-white/40 transition-colors">Overview</a>
           <div class="h-px bg-midnight/10 my-1 mx-2"></div>
           <a href="health.html" class="block px-5 py-2.5 text-sm text-ink-muted hover:bg-white/40 hover:text-ink transition-colors">Maternal & Health Support</a>
-          <a href="child.html" class="block px-5 py-2.5 text-sm font-semibold text-ember bg-white/30">Child Education</a>
+          <a href="child.html" class="block px-5 py-2.5 text-sm font-semibold text-ember bg-white/30">Child Education &amp; Opportunity</a>
           <a href="women.html" class="block px-5 py-2.5 text-sm text-ink-muted hover:bg-white/40 hover:text-ink transition-colors">Rural Empowerment</a>
           <a href="advocacy.html" class="block px-5 py-2.5 text-sm text-ink-muted hover:bg-white/40 hover:text-ink transition-colors">Advocacy &amp; Awareness</a>
         </div>
@@ -264,7 +265,7 @@
       <div id="wwd-mobile-panel" class="hidden flex-col border-b border-paper-dim">
         <a data-menu-link class="py-2.5 pl-2 text-midnight font-semibold" href="what-we-do.html">Overview</a>
         <a data-menu-link class="py-2.5 pl-2 text-ink-muted" href="health.html">Maternal Health Support</a>
-        <a data-menu-link class="py-2.5 pl-2 text-ember font-semibold" href="child.html">Child Education</a>
+        <a data-menu-link class="py-2.5 pl-2 text-ember font-semibold" href="child.html">Child Education &amp; Opportunity</a>
         <a data-menu-link class="py-2.5 pl-2 text-ink-muted" href="women.html">Rural Empowerment</a>
         <a data-menu-link class="py-2.5 pl-2 pb-3 text-ink-muted" href="advocacy.html">Advocacy &amp; Awareness</a>
       </div>
@@ -283,14 +284,14 @@
 <main id="top">
 
 <!-- ===================== Hero — full-bleed photo, glass text panel (matches index.html) ===================== -->
-<section class="relative w-full min-h-[720px] sm:min-h-[680px] md:min-h-[92vh] flex items-end">
+<section class="relative w-full min-h-[600px] sm:min-h-[640px] md:min-h-[92vh] flex items-end">
   <div class="absolute inset-0">
     <img src="images/child-hero-backpack-handover.jpg" alt="BBSI volunteers, including a volunteer using a wheelchair, celebrating with schoolchildren after a backpack handover" class="w-full h-full object-cover object-[center_10%] md:object-top"/>
     <div class="absolute inset-0 bg-gradient-to-t from-midnight-deep via-midnight-deep/55 via-35% to-transparent"></div>
   </div>
 
-  <div class="relative w-full px-4 sm:px-6 md:px-10 max-w-wrap mx-auto pb-8 md:pb-14 pt-56 sm:pt-40">
-    
+  <div class="relative w-full px-4 sm:px-6 md:px-10 max-w-wrap mx-auto pb-8 md:pb-14 pt-24 sm:pt-32">
+
     <div class="glass rounded-lg p-5 sm:p-9 md:p-11 max-w-xl">
       <span class="inline-block text-xs sm:text-sm font-semibold text-marigold mb-3 sm:mb-4">Our Core Programs</span>
       <h1 class="fs-display font-display text-white mb-4 sm:mb-5">Child Education</h1>
@@ -305,7 +306,7 @@
 
 <!-- ===================== Floating glass stat strip ===================== -->
 <section class="px-4 sm:px-6 md:px-10 max-w-wrap mx-auto relative z-10">
-  <div class="reveal reveal-scale glass-light rounded-lg shadow-xl -mt-8 md:-mt-12 px-6 sm:px-10 py-8 grid grid-cols-2 md:grid-cols-4 gap-y-7 gap-x-4 text-center">
+  <div class="reveal reveal-scale glass-light rounded-lg shadow-xl -mt-8 md:-mt-12 px-4 sm:px-10 py-7 sm:py-8 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-3 sm:gap-x-4 text-center">
     <div>
       <div class="fs-stat font-display text-ember mb-1 counter" data-target="5000" data-suffix="+">0</div>
       <div class="text-xs sm:text-sm text-ink-muted font-medium">Children educated</div>
@@ -387,7 +388,7 @@
     <h2 class="fs-h2 font-display text-midnight mb-4">Moments from the outreach</h2>
     <p class="text-ink-muted leading-relaxed">Backpack handovers, uniform drives, and Children's Day celebrations from communities across Nigeria.</p>
   </div>
-  <div class="reveal-stagger grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+  <div class="reveal-stagger grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
 
     <button type="button" class="gallery-tile relative rounded-lg overflow-hidden shadow-md aspect-square text-left" data-lightbox="images/child-field-school-backpacks.jpg" data-caption="Backpack distribution day at a rural primary school">
       <img src="images/child-field-school-backpacks.jpg" alt="Pupils and BBSI volunteers gathered outdoors with new backpacks" class="w-full h-full object-cover"/>
@@ -548,11 +549,11 @@
           <span class="font-display text-lg md:text-xl font-bold text-white">BBSI</span>
         </div>
         <p class="text-white leading-relaxed text-sm">Blue Baby Support Initiative is committed to standing in the gap for women, children and underserved families through practical support, education, empowerment, advocacy and community outreach. Small acts. Meaningful impact. Brighter possibilities.</p>
-        <div class="flex gap-4 mt-2">
+        <div class="flex flex-wrap gap-4 mt-2">
           <a class="text-white hover:text-marigold transition-colors" href="mailto:bbsinitiative@gmail.com" aria-label="Email Blue Baby Support Initiative on Gmail">
             <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" alt="Gmail" width="20" height="20" style="width:20px;height:20px;display:block;">
           </a>
-          <a class="text-white hover:text-marigold transition-colors" href="mailto:info@bbsinitiative.com" aria-label="Email Blue Baby Support Initiative">
+          <a class="text-white hover:text-marigold transition-colors" href="mailto:info@bbsinitiative.org.ng" aria-label="Email Blue Baby Support Initiative">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3V6z" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5"/></svg>
           </a>
           <a class="text-white hover:text-marigold transition-colors" href="tel:+2348033342104" aria-label="Call Blue Baby Support Initiative">
@@ -576,10 +577,10 @@
 </footer>
 
 <!-- Floating WhatsApp -->
-<div id="whatsapp-wrap" class="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[90] flex items-center gap-3">
+<div id="whatsapp-wrap" class="fixed bottom-4 right-4 sm:bottom-7 sm:right-7 z-[90] flex items-center gap-3">
   <span id="whatsapp-tooltip" class="hidden sm:inline-block bg-midnight-deep text-white text-sm font-semibold px-3.5 py-2 rounded-md shadow-lg whitespace-nowrap">Chat with us on WhatsApp</span>
-  <a id="whatsapp-float" href="https://wa.me/2348033342104?text=Hello%20BBSI%2C%20I%27d%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" aria-label="Chat with Blue Baby Support Initiative on WhatsApp" class="flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-[#25D366] shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform duration-200">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.46 17.51 2 12.04 2zm5.86 14.03c-.25.7-1.45 1.34-2 1.42-.51.08-1.16.11-1.87-.12-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.08.93 2.23.08.15.13.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.08.13.08.75-.17 1.45z"/></svg>
+  <a id="whatsapp-float" href="https://wa.me/2348033342104?text=Hello%20BBSI%2C%20I%27d%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" aria-label="Chat with Blue Baby Support Initiative on WhatsApp" class="flex items-center justify-center h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-[#25D366] shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform duration-200">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.46 17.51 2 12.04 2zm5.86 14.03c-.25.7-1.45 1.34-2 1.42-.51.08-1.16.11-1.87-.12-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.08.93 2.23.08.15.13.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.08.13.08.75-.17 1.45z"/></svg>
   </a>
 </div>
 
