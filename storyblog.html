@@ -131,7 +131,7 @@ tailwind.config={theme:{extend:{colors:{midnight:'#16233F','midnight-deep':'#0E1
 const SUPABASE_URL='https://wpvymacwvuqhimbydzux.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_YJEmK43QT_V8YwonuwuFSg_3UK_nHbm';
 const BUCKET='story-images',ADMIN_PASSWORD='bbsinitiative2026',MANAGE_PASSWORD='bbsinitiative2025',MAX_IMAGES=10;
-const API_HEADERS={apikey:SUPABASE_ANON_KEY,Authorization:`Bearer ${SUPABASE_ANON_KEY}`};
+const API_HEADERS=SUPABASE_ANON_KEY.startsWith('eyJ')?{apikey:SUPABASE_ANON_KEY,Authorization:`Bearer ${SUPABASE_ANON_KEY}`}:{apikey:SUPABASE_ANON_KEY};
 let allPostsCache=[],editingPostId=null;
 
 function normalizeImages(value){
@@ -153,7 +153,8 @@ async function loadPosts(){
   const l=document.getElementById('posts-loading'),e=document.getElementById('posts-empty'),er=document.getElementById('posts-error'),g=document.getElementById('posts-grid');
   l.classList.remove('hidden');e.classList.add('hidden');er.classList.add('hidden');g.innerHTML='';
   try{
-    let data=await apiFetch('/rest/v1/posts?select=*&order=created_at.desc');
+    let data=await apiFetch('/rest/v1/posts?select=*&order=created_at.desc',{cache:'no-store'});
+    console.log('BBSI posts response:',data);
     if(!Array.isArray(data)) data=[];
     allPostsCache=data;
     l.classList.add('hidden');
